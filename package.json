@@ -1,0 +1,25 @@
+{
+  "name": "olimpus_back",
+  "version": "1.0.0",
+  "description": "Back of Olimpus App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michiqueli/olimpus_back.git"
+  },
+  "author": "Grupo que Aporta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michiqueli/olimpus_back/issues"
+  },
+  "homepage": "https://github.com/michiqueli/olimpus_back#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
