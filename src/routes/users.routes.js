@@ -1,0 +1,10 @@
+const { Router } = require('express')
+const router = Router()
+const { } = require('../controllers/users.controllers')
+
+router.post('/create')
+router.get('/')
+router.get('/name')
+router.get('/:id')
+router.delete('/delete/:id')
+router.patch('/update/:id')
