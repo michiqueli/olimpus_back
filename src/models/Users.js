@@ -1,13 +1,14 @@
 const { DataTypes } = require("sequelize");
+
 module.exports = (sequelize) => {
-  return sequelize.define(
+  sequelize.define(
     "User",
     {
       id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: DataTypes.UUIDV4
       },
       name: {
         type: DataTypes.STRING,
@@ -32,8 +33,5 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
     },
-    {
-      freezeTableName: true,
-    }
   );
 };
