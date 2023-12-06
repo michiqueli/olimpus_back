@@ -29,9 +29,6 @@ const { Address, Cart, Product, Type, User, Subtype } = sequelize.models;
 Product.belongsTo(Type);
 Type.hasMany(Product);
 
-Type.belongsToMany(Subtype, { through: "type_subtype", timestamps: false });
-Subtype.belongsToMany(Type, { through: "type_subtype", timestamps: false });
-
 Address.belongsTo(User);
 User.hasOne(Address);
 
