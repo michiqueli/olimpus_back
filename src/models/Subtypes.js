@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   return sequelize.define(
-    "Cart",
+    "Subtype",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -9,17 +9,8 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      product_id: {
+      name: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      total: {
-        type: DataTypes.FLOAT,
         allowNull: false,
       },
     },
