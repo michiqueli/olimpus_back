@@ -1,6 +1,7 @@
 const { User } = require('../db/db');
 
 const UserServices = {
+  
   getAllUsers: async () => {
     try {
       const users = await User.findAll();

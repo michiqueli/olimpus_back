@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,11 +23,20 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      address: {
+        street: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        zipCode: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+      },
       roleid: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-
       isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
