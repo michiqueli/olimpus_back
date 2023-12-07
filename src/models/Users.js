@@ -23,14 +23,12 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       address: {
-        street: {
-          type: DataTypes.STRING,
-          allowNull: false
-        },
-        zipCode: {
-          type: DataTypes.STRING,
-          allowNull: false
-        },
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: {
+          street: "",
+          zipCode: ""
+        }
       },
       roleid: {
         type: DataTypes.INTEGER,
