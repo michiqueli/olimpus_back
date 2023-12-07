@@ -32,6 +32,9 @@ Type.hasMany(Product);
 Address.belongsTo(User);
 User.hasOne(Address);
 
+Type.hasMany(Subtype, { foreignKey: "typeId" });
+Subtype.belongsTo(Type, { foreignKey: "typeId" });
+
 User.hasOne(Cart, { through: "user_cart", timestamps: false });
 Cart.belongsTo(User, { through: "user_cart", timestamps: false });
 
