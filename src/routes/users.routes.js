@@ -1,10 +1,9 @@
-const { Router } = require('express')
-const router = Router()
-const { } = require('../controllers/users.controllers')
+const { Router } = require('express');
+const router = Router();
+const UserController = require('../services/users.services');
 
-router.post('/create')
-router.get('/')
-router.get('/name')
-router.get('/:id')
-router.delete('/delete/:id')
-router.patch('/update/:id')
+// Endpoint para obtener todos los usuarios
+router.get('/', UserController.getAllUsers);
+router.post('/', UserController.createUser);
+
+module.exports = router;

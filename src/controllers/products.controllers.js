@@ -1,54 +1,26 @@
+const ProductService = require('../services/products.services');
 
-const registerUser = async (req, res) => {
+const ProductController = {
+  getAllProducts: async (req, res) => {
     try {
-        const {} = req.body
-
-        // Aca ira la Validacion de datos
-
+      const products = await ProductService.getAllProducts();
+      res.json(products);
     } catch (error) {
-        res.status(500).json({ message: error.message })
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-}
+  },
 
-const getAllUser = async (req, res) => {
+  createProduct: async (req, res) => {
     try {
-        
+      const productData = req.body;
+      const newProduct = await ProductService.createProduct(productData);
+      res.status(201).json(newProduct);
     } catch (error) {
-        res.status(400).json({ error: error.message })
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-}
+  },
+};
 
-const getUserById = async (req, res) => {
-    const { id } = req.params
-    try {
-        
-    } catch (error) {
-        res.status(500).send({ message: error.message })
-    }
-}
-
-const updateUser = async (req, res) => {
-    const { id } = req.params
-    try {
-        
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-}
-
-const deleteUser = async (req, res) => {
-    const {id} = req.params
-    try {
-        
-    } catch (error) {
-        res.status(500).send({ message: error.message })
-    }
-}
-
-module.exports = {
-    registerUser,
-    getAllUser,
-    getUserById,
-    updateUser,
-    deleteUser,
-}
+module.exports = ProductController;
