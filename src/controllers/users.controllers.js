@@ -1,9 +1,9 @@
-const UserService = require('../services/users.services.js');
+const UserServices = require('../services/users.services.js');
 
-const UserController = {
+const UserControllers = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await UserService.getAllUsers();
+      const users = await UserServices.getAllUsers();
       res.json(users);
     } catch (error) {
       console.error(error);
@@ -14,7 +14,7 @@ const UserController = {
   createUser: async (req, res) => {
     try {
       const userData = req.body; // esto esta sujeto a cambiarlo, no hay destructuring de nada, trae todo
-      const newUser = await UserService.createUser(userData);
+      const newUser = await UserServices.createUser(userData);
       res.status(201).json(newUser);
     } catch (error) {
       console.error(error);
@@ -23,4 +23,4 @@ const UserController = {
   },
 };
 
-module.exports = UserController;
+module.exports = UserControllers;
