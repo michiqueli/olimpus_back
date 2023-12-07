@@ -1,4 +1,4 @@
-const UserService = require('../services/user.services.js');
+const UserService = require('../services/users.services.js');
 
 const UserController = {
   getAllUsers: async (req, res) => {
