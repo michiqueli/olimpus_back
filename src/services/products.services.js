@@ -1,6 +1,6 @@
 const { Product } = require('../db/db'); 
 
-const ProductService = {
+const ProductServices = {
   getAllProducts: async () => {
     try {
       const products = await Product.findAll();
@@ -22,4 +22,4 @@ const ProductService = {
   },
 };
 
-module.exports = ProductService;
+module.exports = ProductServices;

@@ -1,9 +1,9 @@
-const ProductService = require('../services/products.services');
+const ProductServices = require('../services/products.services');
 
-const ProductController = {
+const ProductControllers = {
   getAllProducts: async (req, res) => {
     try {
-      const products = await ProductService.getAllProducts();
+      const products = await ProductServices.getAllProducts();
       res.json(products);
     } catch (error) {
       console.error(error);
@@ -13,8 +13,8 @@ const ProductController = {
 
   createProduct: async (req, res) => {
     try {
-      const productData = req.body;
-      const newProduct = await ProductService.createProduct(productData);
+      const productData = req.body.data;
+      const newProduct = await ProductServices.createProduct(productData);
       res.status(201).json(newProduct);
     } catch (error) {
       console.error(error);
@@ -23,4 +23,4 @@ const ProductController = {
   },
 };
 
-module.exports = ProductController;
+module.exports = ProductControllers;

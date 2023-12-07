@@ -1,6 +1,6 @@
 const { User } = require('../db/db');
 
-const UserService = {
+const UserServices = {
   getAllUsers: async () => {
     try {
       const users = await User.find();
@@ -21,4 +21,4 @@ const UserService = {
   },  
 };
 
-module.exports = UserService;
+module.exports = UserServices;
