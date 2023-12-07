@@ -20,12 +20,15 @@ TypeModel(sequelize);
 UserModel(sequelize);
 SubtypeModel(sequelize);
 
-const { Address, Cart, Product, Type, User, Subtype } = sequelize.models;
+const { Cart, Product, Type, User, Subtype } = sequelize.models;
 
 //! ----------------------Relaciones---------------------------------
 
 Product.belongsTo(Type);
 Type.hasMany(Product);
+
+Type.hasMany(Subtype, { foreignKey: "typeId" });
+Subtype.belongsTo(Type, { foreignKey: "typeId" });
 
 User.hasOne(Cart, { through: "user_cart", timestamps: false });
 Cart.belongsTo(User, { through: "user_cart", timestamps: false });

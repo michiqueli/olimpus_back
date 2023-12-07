@@ -1,7 +1,8 @@
 const { DataTypes } = require("sequelize");
+
 module.exports = (sequelize) => {
-  sequelize.define(
-    "Type",
+  return sequelize.define(
+    "Address",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -9,8 +10,17 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      street: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      postalcode: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
