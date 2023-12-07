@@ -1,4 +1,4 @@
-const { Product } = require('../db/db'); 
+const { Product } = require('../db/db');
 
 const ProductServices = {
   getAllProducts: async () => {

@@ -3,7 +3,6 @@ const { Sequelize } = require("sequelize");
 
 const { DB_HOST } = process.env;
 
-const AdressModel = require("../models/Addresses");
 const CartModel = require("../models/Carts");
 const ProductsModel = require("../models/Products");
 const TypeModel = require("../models/Types");
@@ -15,7 +14,6 @@ const sequelize = new Sequelize(DB_HOST, {
   native: false,
 });
 
-AdressModel(sequelize);
 CartModel(sequelize);
 ProductsModel(sequelize);
 TypeModel(sequelize);
@@ -29,14 +27,10 @@ const { Address, Cart, Product, Type, User, Subtype } = sequelize.models;
 Product.belongsTo(Type);
 Type.hasMany(Product);
 
-Address.belongsTo(User);
-User.hasOne(Address);
-
 User.hasOne(Cart, { through: "user_cart", timestamps: false });
 Cart.belongsTo(User, { through: "user_cart", timestamps: false });
 
 module.exports = {
-  Address,
   Cart,
   Product,
   Type,
