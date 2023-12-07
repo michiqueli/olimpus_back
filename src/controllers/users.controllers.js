@@ -14,7 +14,7 @@ const UserControllers = {
   createUser: async (req, res) => {
     try {
       const userData = req.body; // esto esta sujeto a cambiarlo, no hay destructuring de nada, trae todo
-      const newUser = await UserServices.createUser(userData);
+      const newUser = await UserServices.register(userData);
       res.status(201).json(newUser);
     } catch (error) {
       console.error(error);

@@ -18,6 +18,7 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
@@ -31,6 +32,16 @@ module.exports = (sequelize) => {
       isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      address: {
+        street: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        zipCode: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
       },
     },
     {
