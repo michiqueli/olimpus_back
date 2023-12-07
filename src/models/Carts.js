@@ -11,14 +11,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      amount: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
     },
-    total: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-  });
+    {
+      timestamps: false,
+    }
+  );
 };
