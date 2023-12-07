@@ -21,6 +21,16 @@ const ProductControllers = {
       res.status(500).send('Internal Server Error');
     }
   },
+
+  getProductById: async (req, res) => {
+    try {
+      const {id} = req.params
+      const product = await ProductServices.getOneProduct(id)
+      res.status(201).json(product)
+    } catch (error) {
+      res.status(400).send(error.message)
+    }
+  }
 };
 
 module.exports = ProductControllers;

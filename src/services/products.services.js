@@ -1,4 +1,4 @@
-const { Product } = require('../db/db'); 
+const { Product, Review } = require('../db/db');
 
 const ProductServices = {
   getAllProducts: async () => {
@@ -20,6 +20,20 @@ const ProductServices = {
       throw new Error('Error creating product');
     }
   },
+  getOneProduct: async (id) => {
+    try {
+      const product = await Product.findOne({
+        include: [{
+            model: Review,
+            as: 'review'
+        }],
+        where: { id: id }
+    })
+    return product
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 };
 
 module.exports = ProductServices;

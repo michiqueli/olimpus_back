@@ -1,6 +1,7 @@
 const { User } = require('../db/db');
 
 const UserServices = {
+  
   getAllUsers: async () => {
     try {
       const users = await User.find();
@@ -18,7 +19,7 @@ const UserServices = {
       console.error(error);
       throw new Error('Error creating user');
     }
-  },  
+  }, 
 };
 
 module.exports = UserServices;
