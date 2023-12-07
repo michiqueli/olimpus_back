@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  return sequelize.define(
+ sequelize.define(
     "Product",
     {
       id: {
@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       description: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       image: {
@@ -40,7 +40,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      freezeTableName: true,
+      timestamps: false
     }
   );
 };
