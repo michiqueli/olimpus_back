@@ -13,7 +13,7 @@ const ProductControllers = {
 
   createProduct: async (req, res) => {
     try {
-      const productData = req.body.data;
+      const productData = req.body;
       const newProduct = await ProductServices.createProduct(productData);
       res.status(201).json(newProduct);
     } catch (error) {
