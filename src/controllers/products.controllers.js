@@ -24,7 +24,9 @@ const ProductControllers = {
 
   getProductById: async (req, res) => {
     try {
-      const {id} = req.params
+      console.log("entrando")
+      const id = req.params.id
+      console.log(id)
       const product = await ProductServices.getOneProduct(id)
       res.status(201).json(product)
     } catch (error) {

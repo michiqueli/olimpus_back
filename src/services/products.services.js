@@ -25,7 +25,6 @@ const ProductServices = {
       const product = await Product.findOne({
         include: [{
             model: Review,
-            as: 'review'
         }],
         where: { id: id }
     })
