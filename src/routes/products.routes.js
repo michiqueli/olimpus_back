@@ -54,7 +54,7 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              TypeId: Indumentaria
  *              SubtypeId: {
  *                  name: Short
- *                  matric: S         
+ *                  metric: S         
  *                  }
  *      postProducts:
  *          type: object
