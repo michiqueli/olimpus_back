@@ -28,6 +28,9 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
-    "sequelize": "^6.35.1"
+    "sequelize": "^6.35.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui": "^5.10.3",
+    "swagger-ui-express": "^5.0.0"
   }
 }

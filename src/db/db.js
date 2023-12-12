@@ -32,10 +32,11 @@ const { Cart, Product, Type, User, Subtype, Review, Compra, Payment } =
 //! ----------------------Relaciones---------------------------------
 
 Product.belongsTo(Type);
+Product.belongsTo(Subtype)
 Type.hasMany(Product);
-
-Type.hasMany(Subtype, { foreignKey: "name" });
-Subtype.belongsTo(Type, { foreignKey: "typeId" });
+Subtype.hasMany(Product)
+Type.hasMany(Subtype)
+Subtype.belongsTo(Type)
 
 User.hasOne(Cart, { through: "user_cart", timestamps: false });
 Cart.belongsTo(User, { through: "user_cart", timestamps: false });
