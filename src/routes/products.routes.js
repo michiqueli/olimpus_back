@@ -17,13 +17,13 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *          type: object
  *          properties:
  *              name:
- *                  type: string,
+ *                  type: string
  *                  description: Name of the Product
  *              price: 
- *                  type: float
+ *                  type: number
  *                  description: Price of the Product
  *              stock:
- *                  type: number
+ *                  type: integer
  *                  description: Quantity in Stock
  *              description:
  *                  type: string
@@ -34,9 +34,9 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              discount:
  *                  type: number
  *                  description: Number of the discount to the price of the product
- *              isActve:
+ *              isActive:
  *                  type: boolean
- *                  description: Say if the Product is Active or Not
+ *                  description: Indicates if the Product is Active or Not
  *              TypeId:
  *                  type: number
  *                  description: ID of Category
@@ -57,30 +57,35 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              name: Remera Adidas Dama
  *              price: 12540.57
  *              stock: 10
- *              description: descriptio for example
+ *              description: Description for example
  *              image: example.jpg
  *              discount: 10
  *              isActive: true
  *              TypeId: 3
  *              SubtypeId: 14
  */
+
 /**
  * @swagger
+ * tags:
+ *   name: Products
+ *   description: API para manejar productos
+ *
  * /products:
- *      get:
- *          summary: Get All Products from de DB
- *          tags: [products]
- *          requestBody:
- *              required: true
+ *   get:
+ *      summary: Get All Products from the DB
+ *      tags: [Products]
+ *      responses:
+ *          '200':
+ *              description: Successful response. Returns a list of products.
  *              content:
  *                  application/json:
  *                      schema:
  *                          type: array
  *                          items:
  *                              $ref: '#/components/schemas/Products'
- *          response:
- *              200:
- *                  description: All Products
+ *          '500':
+ *              description: Internal Server Error
  */
 
 module.exports = router;
