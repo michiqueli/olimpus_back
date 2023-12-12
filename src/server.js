@@ -53,7 +53,7 @@ const swaggerSpec = {
         },
         servers: [
             {
-                url: `${BASE_URL}`
+                url: 'https://olimpusback.up.railway.app'
             }
         ]
     },
