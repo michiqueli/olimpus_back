@@ -13,7 +13,50 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  * @swagger 
  * components:
  *   schemas:
- *      Products:
+ *      getProducts:
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *                  description: Name of the Product
+ *              price: 
+ *                  type: number
+ *                  description: Price of the Product
+ *              stock:
+ *                  type: integer
+ *                  description: Quantity in Stock
+ *              description:
+ *                  type: string
+ *                  description: Description of the Product
+ *              image:
+ *                  type: string
+ *                  description: Image URL of the Product
+ *              discount:
+ *                  type: number
+ *                  description: Number of the discount to the price of the product
+ *              isActive:
+ *                  type: boolean
+ *                  description: Indicates if the Product is Active or Not
+ *              TypeId:
+ *                  type: string
+ *                  description: Category of the Product
+ *              SubtypeId:
+ *                  type: object
+ *                  description: Sub-Category of the product
+ *          example:
+ *              name: Remera Adidas Dama
+ *              price: 12540.57
+ *              stock: 10
+ *              description: Description for example
+ *              image: example.jpg
+ *              discount: 10
+ *              isActive: true
+ *              TypeId: Indumentaria
+ *              SubtypeId: {
+ *                  name: Short
+ *                  matric: S         
+ *                  }
+ *      postProducts:
  *          type: object
  *          properties:
  *              name:
@@ -83,7 +126,7 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#/components/schemas/Products'
+ *                              $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
  */
