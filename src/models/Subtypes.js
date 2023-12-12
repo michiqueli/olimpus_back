@@ -1,15 +1,16 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  return sequelize.define(
+  sequelize.define(
     "Subtype",
     {
       id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
-        primaryKey: true,
         allowNull: false,
       },
       metric: {
