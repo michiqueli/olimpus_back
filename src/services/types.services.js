@@ -17,11 +17,15 @@ const TypeServices = {
           },
         ],
       });
-      let types = []
-      products.map((product)=>{
-        types.push({type: product.Type.name, subType: product.Subtype.name, metric: product.Subtype.metric})
+      let types = [];
+      products.map((product) => {
+        types.push({
+          type: product.Type.name,
+          subType: product.Subtype.name,
+          metric: product.Subtype.metric,
+        });
       });
-      return types
+      return types;
     } catch (error) {
       console.error(error);
       throw new Error("Error fetching products");
@@ -37,10 +41,26 @@ const TypeServices = {
           },
         ],
       });
-      return types
+      return types;
     } catch (error) {
       console.error(error);
       throw new Error("Error fetching products");
+    }
+  },
+  getTypesWithSubtypes: async () => {
+    try {
+      const typesWithSubtypes = await Type.findAll({
+        include: [
+          {
+            model: Subtype,
+            attributes: ["id", "name", "metric"],
+          },
+        ],
+      });
+      return typesWithSubtypes;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching types with subtypes");
     }
   },
 };
