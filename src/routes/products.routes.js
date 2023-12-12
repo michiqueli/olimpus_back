@@ -37,6 +37,12 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              isActve:
  *                  type: boolean
  *                  description: Say if the Product is Active or Not
+ *              TypeId:
+ *                  type: number
+ *                  description: ID of Category
+ *              SubtypeId:
+ *                  type: number
+ *                  description: ID of Sub-Category
  *          required:
  *              - name
  *              - price
@@ -55,7 +61,8 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              image: example.jpg
  *              discount: 10
  *              isActive: true
- *              TypeId: 2
+ *              TypeId: 3
+ *              SubtypeId: 14
  */
 /**
  * @swagger
