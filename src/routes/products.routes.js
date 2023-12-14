@@ -1,16 +1,23 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const router = Router();
-const ProductControllers = require('../controllers/products.controllers');
+const ProductControllers = require("../controllers/products.controllers");
+const FiltersServices = require("../services/filters.services");
 
-router.get('/', ProductControllers.getAllProducts);
-router.get('/name', ProductControllers.getProductByName)
-router.get('/:id', ProductControllers.getProductById);
-router.post('/', ProductControllers.createProduct);
-router.patch('/update/:id', ProductControllers.updateProduct)
-router.delete('/delete/:id', ProductControllers.deleteProduct)
+router.get("/", ProductControllers.getAllProducts);
+router.get("/name", ProductControllers.getProductByName);
+router.get("/:id", ProductControllers.getProductById);
+router.post("/", ProductControllers.createProduct);
+router.patch("/update/:id", ProductControllers.updateProduct);
+router.delete("/delete/:id", ProductControllers.deleteProduct);
+
+// FILTRO POR TIPO
+router.get("/filterByType/:typeName", ProductControllers.filterByType);
+
+// FILTRO POR SUBTIPO
+router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
 
 /**
- * @swagger 
+ * @swagger
  * components:
  *   schemas:
  *      Products:
@@ -19,7 +26,7 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              name:
  *                  type: string
  *                  description: Name of the Product
- *              price: 
+ *              price:
  *                  type: number
  *                  description: Price of the Product
  *              stock:
@@ -52,10 +59,8 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              discount: 10
  *              isActive: true
  *              TypeId: Indumentaria
- *              SubtypeId: {
  *                  name: Short,
- *                  metric: S         
- *                  }
+ *.                 metric: S
  *          required:
  *              - name
  *              - price
