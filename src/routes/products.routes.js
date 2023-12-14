@@ -20,7 +20,7 @@ router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
  * @swagger
  * components:
  *   schemas:
- *      getProducts:
+ *      Products:
  *          type: object
  *          properties:
  *              name:
@@ -59,40 +59,8 @@ router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
  *              discount: 10
  *              isActive: true
  *              TypeId: Indumentaria
- *              SubtypeId: {
- *                  name: Short
- *                  metric: S
- *                  }
- *      postProducts:
- *          type: object
- *          properties:
- *              name:
- *                  type: string
- *                  description: Name of the Product
- *              price:
- *                  type: number
- *                  description: Price of the Product
- *              stock:
- *                  type: integer
- *                  description: Quantity in Stock
- *              description:
- *                  type: string
- *                  description: Description of the Product
- *              image:
- *                  type: string
- *                  description: Image URL of the Product
- *              discount:
- *                  type: number
- *                  description: Number of the discount to the price of the product
- *              isActive:
- *                  type: boolean
- *                  description: Indicates if the Product is Active or Not
- *              TypeId:
- *                  type: number
- *                  description: ID of Category
- *              SubtypeId:
- *                  type: number
- *                  description: ID of Sub-Category
+ *                  name: Short,
+ *.                 metric: S
  *          required:
  *              - name
  *              - price
@@ -133,7 +101,7 @@ router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#/components/schemas/getProducts'
+ *                              $ref: '#/components/schemas/Products'
  *          '500':
  *              description: Internal Server Error
  */
