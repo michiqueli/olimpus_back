@@ -43,6 +43,16 @@ const ProductControllers = {
     }
   },
 
+  getProductWithDiscount: async (req, res) => {
+    try {
+      console.log("entrando a cotroller")
+      const products = await ProductServices.getProductWithDiscount();
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  },
+
   updateProduct: async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
