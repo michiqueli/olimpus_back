@@ -53,8 +53,8 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              isActive: true
  *              TypeId: Indumentaria
  *              SubtypeId: {
- *                  name: Short
- *                  matric: S         
+ *                  name: Short,
+ *                  metric: S         
  *                  }
  *      postProducts:
  *          type: object
@@ -124,7 +124,7 @@ router.delete('/delete/:id', ProductControllers.deleteProduct)
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
+ *                          type: array,
  *                          items:
  *                              $ref: '#/components/schemas/getProducts'
  *          '500':
