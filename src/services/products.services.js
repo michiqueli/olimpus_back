@@ -67,6 +67,26 @@ const ProductServices = {
     }
   },
 
+  getProductWithDiscount: async (name) => {
+    try {
+      console.log("entrando al service")
+      const response = await Product.findAll({
+        where: {
+          discount: {
+            [Op.gt]: 0,
+          },
+        },
+      });
+      if (!response) {
+        throw new Error("No have product with discount");
+      }
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching Product");
+    }
+  },
+
   updateProduct: async (id, updateData) => {
     try {
       const product = await Product.findByPk(id);
