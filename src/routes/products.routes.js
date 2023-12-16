@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 const ProductControllers = require("../controllers/products.controllers");
-const FiltersServices = require("../services/filters.services");
 
 router.get("/", ProductControllers.getAllProducts);
 router.get("/name", ProductControllers.getProductByName);
+router.get('/withDiscount', ProductControllers.getProductWithDiscount)
 router.get("/:id", ProductControllers.getProductById);
 router.post("/", ProductControllers.createProduct);
 router.patch("/update/:id", ProductControllers.updateProduct);
@@ -99,7 +99,7 @@ router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
+ *                          type: array,
  *                          items:
  *                              $ref: '#/components/schemas/Products'
  *          '500':
