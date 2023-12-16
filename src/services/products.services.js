@@ -118,6 +118,29 @@ const ProductServices = {
       throw new Error("Error fetching Product");
     }
   },
+
+  orderByPrice: async () => {
+    try {
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+        ],
+        order: [['price', 'ASC']],
+      });
+
+      return products;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching products");
+    }
+  }
 };
 
 module.exports = ProductServices;

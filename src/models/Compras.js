@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       cartIds: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
       },
       total: {

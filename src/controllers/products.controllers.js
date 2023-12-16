@@ -53,6 +53,17 @@ const ProductControllers = {
     }
   },
 
+  orderByPrice: async (req, res) => {
+    try {
+      const products = await ProductServices.orderByPrice();
+
+      res.status(200).json(products);
+    } catch (error) {
+      console.error('Error sorting by price:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+
   updateProduct: async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
@@ -64,7 +75,7 @@ const ProductControllers = {
     }
   },
 
-  deleteProduct: async (req, res) => {
+  deleteProduct: async (req, res) => {z 
     const { id } = req.params;
     try {
       const product = await ProductServices.deleteProduct(id);
