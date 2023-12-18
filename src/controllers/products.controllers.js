@@ -73,17 +73,7 @@ const ProductControllers = {
       res.status(500).json({ message: error.message });
     }
   },
-  // filterByType: async (req, res) => {
-  //   const { typeName } = req.query;
-  //   try {
-  //     const filteredTypes = await FiltersServices.filterByType(typeName);
 
-  //     res.json(filteredTypes);
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
-  // },
   filterByType: async (req, res) => {
     try {
       const { typeName } = req.params;
