@@ -14,6 +14,9 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
+          {
+            model: Review
+          }
         ],
       });
       return products;
@@ -37,12 +40,24 @@ const ProductServices = {
       const product = await Product.findOne({
         include: [
           {
-            model: Review,
+            model: Type,
+            attributes: ["name"],
           },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+          {
+            model: Review
+          }
         ],
         where: { id: id },
       });
-      return product;
+      if (!product) {
+        return "No existe producto con ese ID";
+      } else {
+        return product;
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -51,6 +66,19 @@ const ProductServices = {
   getProductByName: async (name) => {
     try {
       const response = await Product.findAll({
+        include: [
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+          {
+            model: Review
+          }
+        ],
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
@@ -69,8 +97,21 @@ const ProductServices = {
 
   getProductWithDiscount: async (name) => {
     try {
-      console.log("entrando al service")
+      console.log("entrando al service");
       const response = await Product.findAll({
+        include: [
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+          {
+            model: Review
+          }
+        ],
         where: {
           discount: {
             [Op.gt]: 0,
