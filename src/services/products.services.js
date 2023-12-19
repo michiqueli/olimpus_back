@@ -14,9 +14,6 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-          {
-            model: Review
-          }
         ],
       });
       return products;
@@ -38,19 +35,7 @@ const ProductServices = {
   getOneProduct: async (id) => {
     try {
       const product = await Product.findOne({
-        include: [
-          {
-            model: Type,
-            attributes: ["name"],
-          },
-          {
-            model: Subtype,
-            attributes: ["name", "metric"],
-          },
-          {
-            model: Review
-          }
-        ],
+
         where: { id: id },
       });
       if (!product) {
@@ -66,19 +51,7 @@ const ProductServices = {
   getProductByName: async (name) => {
     try {
       const response = await Product.findAll({
-        include: [
-          {
-            model: Type,
-            attributes: ["name"],
-          },
-          {
-            model: Subtype,
-            attributes: ["name", "metric"],
-          },
-          {
-            model: Review
-          }
-        ],
+
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
@@ -99,19 +72,7 @@ const ProductServices = {
     try {
       console.log("entrando al service");
       const response = await Product.findAll({
-        include: [
-          {
-            model: Type,
-            attributes: ["name"],
-          },
-          {
-            model: Subtype,
-            attributes: ["name", "metric"],
-          },
-          {
-            model: Review
-          }
-        ],
+
         where: {
           discount: {
             [Op.gt]: 0,
