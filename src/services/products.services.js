@@ -35,7 +35,11 @@ const ProductServices = {
   getOneProduct: async (id) => {
     try {
       const product = await Product.findOne({
-
+        include: [
+          {
+            model: Review,
+          },
+        ],
         where: { id: id },
       });
       if (!product) {
@@ -51,7 +55,6 @@ const ProductServices = {
   getProductByName: async (name) => {
     try {
       const response = await Product.findAll({
-
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
@@ -72,7 +75,6 @@ const ProductServices = {
     try {
       console.log("entrando al service");
       const response = await Product.findAll({
-
         where: {
           discount: {
             [Op.gt]: 0,
