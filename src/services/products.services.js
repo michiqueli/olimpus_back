@@ -7,6 +7,9 @@ const ProductServices = {
       const products = await Product.findAll({
         include: [
           {
+            model: Review,
+          },
+          {
             model: Type,
             attributes: ["name"],
           },
@@ -39,6 +42,14 @@ const ProductServices = {
           {
             model: Review,
           },
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
         ],
         where: { id: id },
       });
@@ -55,6 +66,19 @@ const ProductServices = {
   getProductByName: async (name) => {
     try {
       const response = await Product.findAll({
+        include: [
+          {
+            model: Review,
+          },
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+        ],
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
@@ -75,6 +99,19 @@ const ProductServices = {
     try {
       console.log("entrando al service");
       const response = await Product.findAll({
+        include: [
+          {
+            model: Review,
+          },
+          {
+            model: Type,
+            attributes: ["name"],
+          },
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+          },
+        ],
         where: {
           discount: {
             [Op.gt]: 0,
