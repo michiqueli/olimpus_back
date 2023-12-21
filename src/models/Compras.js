@@ -8,20 +8,12 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      products: {
-        type: DataTypes.JSON,
-        allowNull: false,
-      },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      amount: {
-        type: DataTypes.FLOAT,
+      cartIds: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
       },
       total: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       date: {
