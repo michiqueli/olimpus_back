@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       total: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       date: {

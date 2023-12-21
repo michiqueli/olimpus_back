@@ -1,4 +1,4 @@
-// const { Type, Subtype, Product } = require("../db/db");
+// const { Type, Subtype, Product, Review } = require("../db/db");
 // const { Op } = require("sequelize");
 
 // const FiltersServices = {
@@ -9,11 +9,18 @@
 //           "$Subtype.name$": subtypeName,
 //         },
 //         include: [
-//           {
-//             model: Subtype,
-//             attributes: ["name", "metric"],
-//           },
-//         ],
+//             {
+//               model: Type,
+//               attributes: ["name"],
+//             },
+//             {
+//               model: Subtype,
+//               attributes: ["name", "metric"],
+//             },
+//             {
+//               model: Review
+//             }
+//           ],
 //       });
 
 //       return filteredSubtypes.map((product) => ({
@@ -34,15 +41,18 @@
 //           "$Type.name$": typeName,
 //         },
 //         include: [
-//           {
-//             model: Type,
-//             attributes: ["name"],
-//           },
-//           {
-//             model: Subtype,
-//             attributes: ["name", "metric"],
-//           },
-//         ],
+//             {
+//               model: Type,
+//               attributes: ["name"],
+//             },
+//             {
+//               model: Subtype,
+//               attributes: ["name", "metric"],
+//             },
+//             {
+//               model: Review
+//             }
+//           ],
 //       });
 
 //       return filteredTypes.map((product) => ({
