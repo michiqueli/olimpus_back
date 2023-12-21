@@ -2,13 +2,14 @@ const { Router } = require("express");
 const router = Router();
 const ProductControllers = require("../controllers/products.controllers");
 
-router.get("/", ProductControllers.getAllProducts); // Doc Lista
-router.get("/name", ProductControllers.getProductByName); // Doc Lista
-router.get("/withDiscount", ProductControllers.getProductWithDiscount); // Doc Lista
-router.get("/:id", ProductControllers.getProductById); // Doc Lista
-router.post("/", ProductControllers.createProduct); // Doc Lista
-router.patch("/update/:id", ProductControllers.updateProduct); // Doc Lista
-router.delete("/delete/:id", ProductControllers.deleteProduct); // Doc Lista
+router.get("/", ProductControllers.getAllProducts);
+router.get("/orderByPrice", ProductControllers.orderByPrice);
+router.get("/name", ProductControllers.getProductByName);
+router.get('/withDiscount', ProductControllers.getProductWithDiscount)
+router.get("/:id", ProductControllers.getProductById);
+router.post("/", ProductControllers.createProduct);
+router.patch("/update/:id", ProductControllers.updateProduct);
+router.delete("/delete/:id", ProductControllers.deleteProduct);
 
 // FILTRO POR TIPO
 router.get("/filterByType/:typeName", ProductControllers.filterByType); // Doc Lista
