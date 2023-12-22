@@ -339,7 +339,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *              description: Successful response. "El producto a Sido eliminado con exito".
  *          '500':
  *              description: Internal Server Error
- * /product/filterByType/{typeName}:
+ * /products/filterByType/{typeName}:
  *    get:
  *      summary: Get Products filtered By Category from the DB
  *      tags: [Products]
@@ -361,7 +361,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *                              $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
- * /product/filterBySubType/{subTypeName}:
+ * /products/filterBySubType/{subTypeName}:
  *    get:
  *      summary: Get Products filtered By Category from the DB
  *      tags: [Products]

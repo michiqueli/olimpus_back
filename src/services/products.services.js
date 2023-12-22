@@ -7,6 +7,9 @@ const ProductServices = {
       const products = await Product.findAll({
         include: [
           {
+            model: Review,
+          },
+          {
             model: Type,
             attributes: ["name"],
           },
@@ -14,9 +17,7 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-          {
-            model: Review,
-          },
+
         ],
       });
       return products;
@@ -40,6 +41,9 @@ const ProductServices = {
       const product = await Product.findOne({
         include: [
           {
+            model: Review,
+          },
+          {
             model: Type,
             attributes: ["name"],
           },
@@ -47,9 +51,7 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-          {
-            model: Review,
-          },
+
         ],
         where: { id: id },
       });
@@ -68,6 +70,9 @@ const ProductServices = {
       const response = await Product.findAll({
         include: [
           {
+            model: Review,
+          },
+          {
             model: Type,
             attributes: ["name"],
           },
@@ -75,9 +80,7 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-          {
-            model: Review,
-          },
+
         ],
         where: {
           name: {
@@ -101,6 +104,9 @@ const ProductServices = {
       const response = await Product.findAll({
         include: [
           {
+            model: Review,
+          },
+          {
             model: Type,
             attributes: ["name"],
           },
@@ -108,9 +114,7 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-          {
-            model: Review,
-          },
+
         ],
         where: {
           discount: {
