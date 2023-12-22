@@ -55,7 +55,8 @@ const ProductControllers = {
 
   orderByPrice: async (req, res) => {
     try {
-      const products = await ProductServices.orderByPrice();
+      const { ascending } = req.params;
+      const products = await ProductServices.orderByPrice(ascending === "true");
 
       res.status(200).json(products);
     } catch (error) {
