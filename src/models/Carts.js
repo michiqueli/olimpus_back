@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       products: {
-        type: DataTypes.JSON,
+        type: DataTypes.JSONB,
         allowNull: false,
       },
       quantity: {
@@ -21,7 +21,12 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      inCart: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
+
     {
       timestamps: false,
     }
