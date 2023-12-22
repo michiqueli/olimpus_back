@@ -17,7 +17,6 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-
         ],
       });
       return products;
@@ -51,7 +50,6 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-
         ],
         where: { id: id },
       });
@@ -80,7 +78,6 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-
         ],
         where: {
           name: {
@@ -114,7 +111,6 @@ const ProductServices = {
             model: Subtype,
             attributes: ["name", "metric"],
           },
-
         ],
         where: {
           discount: {
@@ -164,8 +160,10 @@ const ProductServices = {
     }
   },
 
-  orderByPrice: async () => {
+  orderByPrice: async (ascending = true) => {
     try {
+      const orderDirection = ascending ? "ASC" : "DESC";
+
       const products = await Product.findAll({
         include: [
           {
@@ -177,7 +175,7 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
         ],
-        order: [["price", "ASC"]],
+        order: [["price", orderDirection]],
       });
 
       return products;

@@ -3,7 +3,7 @@ const router = Router();
 const ProductControllers = require("../controllers/products.controllers");
 
 router.get("/", ProductControllers.getAllProducts);
-router.get("/orderByPrice", ProductControllers.orderByPrice);
+router.get("/orderByPrice/:ascending", ProductControllers.orderByPrice);
 router.get("/name", ProductControllers.getProductByName);
 router.get("/withDiscount", ProductControllers.getProductWithDiscount);
 router.get("/:id", ProductControllers.getProductById);
