@@ -45,7 +45,7 @@ const ProductControllers = {
 
   getProductWithDiscount: async (req, res) => {
     try {
-      console.log("entrando a cotroller")
+      console.log("entrando a cotroller");
       const products = await ProductServices.getProductWithDiscount();
       res.status(200).json(products);
     } catch (error) {
@@ -59,8 +59,8 @@ const ProductControllers = {
 
       res.status(200).json(products);
     } catch (error) {
-      console.error('Error sorting by price:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error("Error sorting by price:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 
@@ -75,7 +75,8 @@ const ProductControllers = {
     }
   },
 
-  deleteProduct: async (req, res) => {z 
+  deleteProduct: async (req, res) => {
+    z;
     const { id } = req.params;
     try {
       const product = await ProductServices.deleteProduct(id);
@@ -115,6 +116,17 @@ const ProductControllers = {
       res
         .status(500)
         .json({ error: "Error al filtrar productos por subtipo." });
+    }
+  },
+
+  filterByMetric: async (req, res) => {
+    try {
+      const { metric } = req.params;
+      const products = await ProductServices.filterByMetric(metric);
+      res.status(200).json(products);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error al filtrar porductos por metric." });
     }
   },
 };

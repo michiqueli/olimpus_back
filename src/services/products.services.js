@@ -15,8 +15,8 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
           {
-            model: Review
-          }
+            model: Review,
+          },
         ],
       });
       return products;
@@ -48,8 +48,8 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
           {
-            model: Review
-          }
+            model: Review,
+          },
         ],
         where: { id: id },
       });
@@ -76,8 +76,8 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
           {
-            model: Review
-          }
+            model: Review,
+          },
         ],
         where: {
           name: {
@@ -109,8 +109,8 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
           {
-            model: Review
-          }
+            model: Review,
+          },
         ],
         where: {
           discount: {
@@ -173,7 +173,7 @@ const ProductServices = {
             attributes: ["name", "metric"],
           },
         ],
-        order: [['price', 'ASC']],
+        order: [["price", "ASC"]],
       });
 
       return products;
@@ -181,7 +181,27 @@ const ProductServices = {
       console.error(error);
       throw new Error("Error fetching products");
     }
-  }
+  },
+
+  filterByMetric: async (metric) => {
+    try {
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Subtype,
+            attributes: ["name", "metric"],
+            where: {
+              metric: metric,
+            },
+          },
+        ],
+      });
+      return products;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al filtrar por metric");
+    }
+  },
 };
 
 module.exports = ProductServices;
