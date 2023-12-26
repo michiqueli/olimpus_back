@@ -2,11 +2,15 @@ const express = require("express");
 const cookieParser = require("cookie-parser"); // agrego este middleware facilita el manejo de cookies en las solicitudes HTTP
 const morgan = require("morgan"); // registro de eventos en solicitudes HTTP
 const cors = require("cors"); // el cors de siempre, nada que aclarar, regula accesos a peticiones del servidor
+const passport = require('passport'); //! google
+const session = require('express-session') //! google
 const path = require('path');
 const { BASE_URL, ACCESS_TOKEN } = process.env;
 
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
+const passport = require('passport'); //! google
+const session = require('express-session') //! google
 
 require("./db/db.js");
 
@@ -40,6 +44,41 @@ server.use((err, req, res, next) => {
   console.error(err);
   res.status(status).send(message);
 });
+//! -----------------google-----------------------------
+
+//middleware de proteccion de rutas
+function isLoggedIn(req, res, next) {
+  req.isAuthenticated() ? next() : res.sendStatus(401)
+}
+
+// Configuración de Passport
+server.use(session({ secret: 'PoryectoHenry', resave: true, saveUninitialized: true }));
+server.use(passport.initialize());
+server.use(passport.session());
+
+server.get('/auth/google',
+  passport.authenticate('google', {scope: ['email', 'profile'] })
+)
+server.get('/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/protected',
+    failureRedirect: '/auth/failure'
+  })
+)
+
+server.get('/auth/failure', (req, res) => {
+  res.send('Authentication Failure')
+})
+
+server.get('/protected', isLoggedIn, (req, res) => {
+  res.send('Ok')
+})
+
+server.get('/logout', (req, res) => {
+  req.logout()
+  req.session.destroy()
+  res.send('GoodBye!')
+})
 
 // Swagger
 const swaggerUI = require('swagger-ui-express');
