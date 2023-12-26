@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
- sequelize.define(
+  sequelize.define(
     "Product",
     {
       id: {
@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
       price: {
         type: DataTypes.FLOAT,
         allowNull: false,
@@ -40,7 +39,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      timestamps: false
+      timestamps: false,
     }
   );
 };

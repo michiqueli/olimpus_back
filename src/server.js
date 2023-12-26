@@ -1,9 +1,14 @@
 const express = require("express");
 const cookieParser = require("cookie-parser"); // agrego este middleware facilita el manejo de cookies en las solicitudes HTTP
-const server = express(); // cree la instancia de express para configurar las rutas y logica del server
-const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
 const morgan = require("morgan"); // registro de eventos en solicitudes HTTP
 const cors = require("cors"); // el cors de siempre, nada que aclarar, regula accesos a peticiones del servidor
+const passport = require('passport'); //! google
+const session = require('express-session') //! google
+const path = require('path');
+const { BASE_URL, ACCESS_TOKEN } = process.env;
+
+const server = express(); // cree la instancia de express para configurar las rutas y logica del server
+const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
 const passport = require('passport'); //! google
 const session = require('express-session') //! google
 
@@ -74,5 +79,26 @@ server.get('/logout', (req, res) => {
   req.session.destroy()
   res.send('GoodBye!')
 })
+
+// Swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerSpec = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Olimpus Shop Docs',
+            version: '1.0.0',  
+        },
+        servers: [
+            {
+                url: 'https://olimpusback.up.railway.app'
+            }
+        ]
+    },
+    apis: [`${path.join(__dirname, './routes/*.js')}`]
+};
+
+server.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
 module.exports = server;
