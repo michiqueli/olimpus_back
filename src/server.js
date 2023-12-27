@@ -9,8 +9,6 @@ const { BASE_URL, ACCESS_TOKEN } = process.env;
 
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
-const passport = require('passport'); //! google
-const session = require('express-session') //! google
 
 require("./db/db.js");
 
