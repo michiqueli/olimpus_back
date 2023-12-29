@@ -24,10 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-<<<<<<< HEAD
     "express-session": "^1.17.3",
-=======
->>>>>>> fcee7655297b9aa372e7fa0b1e26ac9fd00794df
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",

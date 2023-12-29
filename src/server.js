@@ -2,16 +2,13 @@ const express = require("express");
 const cookieParser = require("cookie-parser"); // agrego este middleware facilita el manejo de cookies en las solicitudes HTTP
 const morgan = require("morgan"); // registro de eventos en solicitudes HTTP
 const cors = require("cors"); // el cors de siempre, nada que aclarar, regula accesos a peticiones del servidor
-<<<<<<< HEAD
 const passport = require('passport'); //! google
 const session = require('express-session') //! google
-=======
 const path = require('path');
 const { BASE_URL, ACCESS_TOKEN } = process.env;
 
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
->>>>>>> fcee7655297b9aa372e7fa0b1e26ac9fd00794df
 
 require("./db/db.js");
 
