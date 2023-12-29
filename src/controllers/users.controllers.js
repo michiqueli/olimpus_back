@@ -19,6 +19,16 @@ const UserControllers = {
       res.status(500).send({ message: error.message})
     }
   },
+  getUserByToken: async (req, res) => {
+    const { token } = req.params;
+
+    try {
+      const user = await UserServices.getUserByToken(token);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   getUserByEmail: async (req, res) => {
     const { email } = req.query
     try {
