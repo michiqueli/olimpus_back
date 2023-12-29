@@ -1,4 +1,8 @@
 const loginServices = require('../services/login.services');
+const { User } = require('../db/db')
+require("dotenv").config();
+
+
 
 const loginControllers = {
   loginFunction: async (req, res) => {
@@ -39,6 +43,26 @@ const loginControllers = {
       res.status(200).json({ userId: decodedToken.userId, email: decodedToken.email });
     } catch (error) {
       res.status(401).json({ error: 'Token no válido' });
+    }
+  },
+  getUserByToken: async (req, res) => {
+    const token = req.params.token || req.query.token;
+  
+    try {
+      if (!token) {
+        throw new Error('Token no proporcionado');
+      }
+  
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findByPk(decodedToken.userId);
+  
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+  
+      res.status(200).json({ usuario: user.name, email: user.email, id: user.id });
+    } catch (error) {
+      res.status(401).json({ error: error.message });
     }
   }
 }

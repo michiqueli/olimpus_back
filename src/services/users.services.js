@@ -34,6 +34,26 @@ const UserServices = {
       throw new Error('Error fetching users')
     }
   },
+  getUserByToken: async (token) => {
+    try {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!decodedToken.user) {
+        throw new Error('Invalid token');
+      }
+
+      const user = await User.findByPk(decodedToken.user.id);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error fetching user by token');
+    }
+  },
   getUserByEmail: async (email) => {
     try {
       const response = await User.findAll({
