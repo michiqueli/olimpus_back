@@ -17,7 +17,7 @@ router.get("/filterByType/:typeName", ProductControllers.filterByType); // Doc L
 // FILTRO POR SUBTIPO
 router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType); // Doc Lista
 
-//FILTRO POR CATEGORIA, SUBCATEGORIA Y MEDIDA
+//FILTRO POR  MEDIDA
 
 router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
 

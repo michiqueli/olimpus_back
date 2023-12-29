@@ -31,7 +31,7 @@ const CartServices = {
     }
   },
 
-  addProductsCart: async ({ id, products, quantity, amount }) => {
+  addProductsCart: async ({ id, products, quantity, amount, usuarioId }) => {
     try {
       const product = await Product.findByPk(products[0]);
 
@@ -56,6 +56,7 @@ const CartServices = {
           quantity,
           amount,
           inCart: true,
+          usuarioId, // Establecer el usuarioId al crear el carrito
         });
 
         // Actualizar el estado del producto a "en el carrito", esto lo puse opcional modificando el modelo cart.

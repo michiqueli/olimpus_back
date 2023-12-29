@@ -7,13 +7,14 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        unique: true,
       },
       cartIds: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
       },
       total: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT, // Cambiado a FLOAT para admitir decimales
         allowNull: false,
       },
       date: {

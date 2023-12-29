@@ -28,14 +28,22 @@ const CartControllers = {
   addProductsCart: async (req, res) => {
     try {
       const { id, products, quantity, amount } = req.body;
+      const { usuarioId } = req.params;
 
-      console.log("Datos recibidos:", { id, products, quantity, amount });
+      console.log("Datos recibidos:", {
+        id,
+        products,
+        quantity,
+        amount,
+        usuarioId,
+      });
 
       const result = await CartServices.addProductsCart({
         id,
         products,
         quantity,
         amount,
+        usuarioId,
       });
       res.json(result);
     } catch (error) {
