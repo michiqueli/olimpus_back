@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       total: {
-        type: DataTypes.FLOAT, // Cambiado a FLOAT para admitir decimales
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       date: {
