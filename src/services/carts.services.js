@@ -16,6 +16,29 @@ const CartServices = {
   //     throw new Error("Error al obtener productos");
   //   }
   // },
+  
+  createEmptyCart: async (userId) => {
+    try {
+      // Desactiva cualquier carrito activo previo
+      await Cart.update({ isActive: false }, {
+        where: { usuarioId: userId, isActive: true },
+      });
+
+      const newCart = await Cart.create({
+        usuarioId: userId,
+        products: [],
+        quantity: 0,
+        amount: 0,
+        inCart: true,
+        isActive: true,
+      });
+
+      return newCart;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al crear el nuevo carrito.");
+    }
+  },
 
   getProductsCart: async () => {
     try {
