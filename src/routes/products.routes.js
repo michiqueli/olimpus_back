@@ -3,7 +3,7 @@ const router = Router();
 const ProductControllers = require("../controllers/products.controllers");
 
 router.get("/", ProductControllers.getAllProducts);
-router.get("/orderByPrice", ProductControllers.orderByPrice);
+router.get("/orderByPrice/:ascending", ProductControllers.orderByPrice);
 router.get("/name", ProductControllers.getProductByName);
 router.get("/withDiscount", ProductControllers.getProductWithDiscount);
 router.get("/:id", ProductControllers.getProductById);
@@ -17,7 +17,7 @@ router.get("/filterByType/:typeName", ProductControllers.filterByType); // Doc L
 // FILTRO POR SUBTIPO
 router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType); // Doc Lista
 
-//FILTRO POR CATEGORIA, SUBCATEGORIA Y MEDIDA
+//FILTRO POR  MEDIDA
 
 router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
 

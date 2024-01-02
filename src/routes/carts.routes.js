@@ -5,7 +5,9 @@ const CartControllers = require("../controllers/carts.controllers");
 // router.get("/", CartControllers.getProducts); //traer productos
 router.get("/products-cart", CartControllers.getProductsCart); //traer productos del carrito
 
-router.post("/addproducts", CartControllers.addProductsCart); //agregar productos al carrito
+router.post("/addproducts/:usuarioId", CartControllers.addProductsCart);
+
+router.post('/createEmptyCart/:userId', CartControllers.createEmptyCart);
 
 // router.put("/products-cart/:productId", CartControllers.putProduct); //para agrandar o disminuir la cantidad de productos
 

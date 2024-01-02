@@ -8,6 +8,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
+        unique: true,
       },
       products: {
         type: DataTypes.JSONB,
@@ -24,6 +25,11 @@ module.exports = (sequelize) => {
       inCart: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
     },
 
