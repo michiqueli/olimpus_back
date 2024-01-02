@@ -9,31 +9,36 @@ const ComprasService = {
   },
 
   getUserHistorial: async (userId) => {
-    
     const historial = await Compra.findOne({
       where: { usuarioId: userId },
       attributes: ["id", "cartIds", "total", "date"],
       include: [
         {
           model: Cart,
-          as: 'Carts',
+          as: "Carts",
           attributes: ["id", "products", "quantity", "amount"],
         },
       ],
     });
 
-    return { carts: historial.Carts, total: historial.total, date: historial.date };
+    return {
+      carts: historial.Carts,
+      total: historial.total,
+      date: historial.date,
+    };
   },
 
   addCompraToHistorial: async (userId, cartId) => {
     const historial = await Compra.findOne({
       where: { usuarioId: userId },
     });
+
     const cart = await Cart.findByPk(cartId);
-    
-    await historial.addCart(cart);
+
+    await historial.addCarts([cart]);
+
     historial.total += cart.amount;
-    
+
     await historial.save();
   },
 };
