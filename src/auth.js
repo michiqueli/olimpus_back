@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { User } = require('./db')
+const { User } = require('./db/db')
 
 passport.use(new GoogleStrategy({
   clientID: '779460091956-dto2lti4gg62pd91juk9ck1lrs9khok2.apps.googleusercontent.com',

@@ -11,6 +11,18 @@ const CartControllers = {
   //   }
   // },
 
+  createEmptyCart: async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+      const newCart = await CartServices.createEmptyCart(userId);
+      res.status(201).json({ cart: newCart });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ error: 'Error al crear el nuevo carrito.' });
+    }
+  },
+
   getProductsCart: async (req, res) => {
     try {
       const productsCart = await CartServices.getProductsCart();
@@ -28,14 +40,22 @@ const CartControllers = {
   addProductsCart: async (req, res) => {
     try {
       const { id, products, quantity, amount } = req.body;
+      const { usuarioId } = req.params;
 
-      console.log("Datos recibidos:", { id, products, quantity, amount });
+      console.log("Datos recibidos:", {
+        id,
+        products,
+        quantity,
+        amount,
+        usuarioId,
+      });
 
       const result = await CartServices.addProductsCart({
         id,
         products,
         quantity,
         amount,
+        usuarioId,
       });
       res.json(result);
     } catch (error) {

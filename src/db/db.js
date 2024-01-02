@@ -38,8 +38,8 @@ Subtype.hasMany(Product);
 Type.hasMany(Subtype);
 Subtype.belongsTo(Type);
 
-User.hasMany(Cart, { foreignKey: 'usuarioId', timestamps: false });      //! se cambio!!
-Cart.belongsTo(User, { foreignKey: 'usuarioId', timestamps: false });    //! se cambio!!
+User.hasMany(Cart, { foreignKey: "usuarioId", timestamps: false });
+Cart.belongsTo(User, { foreignKey: "usuarioId", timestamps: false });
 
 Review.belongsTo(User);
 User.hasMany(Review);
@@ -47,8 +47,8 @@ User.hasMany(Review);
 Review.belongsTo(Product);
 Product.hasMany(Review);
 
-Cart.hasOne(Compra, { foreignKey: 'cartId' });      //! se cambio!!
-Compra.belongsTo(Cart, { foreignKey: 'cartId' });   //! se cambio!!
+Cart.belongsTo(Compra, { foreignKey: "CartId", as: "Carts" }); //!se cambio!!
+Compra.hasMany(Cart, { foreignKey: "CartId", as: "Carts" }); //! se cambio!!
 
 Compra.belongsTo(User, { foreignKey: "usuarioId" }); //Establece que una compra pertenece a un usuario y utiliza la clave foránea "usuarioId". //! se cambio!!
 User.hasOne(Compra, { foreignKey: "usuarioId" }); //Establece que un usuario puede tener muchas compras y utiliza la clave foránea "usuarioId". //! se cambio!!
@@ -58,7 +58,6 @@ User.hasMany(Payment, { foreignKey: "usuarioId" }); // Establece que un usuario 
 
 Payment.belongsTo(Compra, { foreignKey: "compraId" }); //Establece que un pago pertenece a una compra y utiliza la clave foránea "compraId".
 Compra.hasMany(Payment, { foreignKey: "compraId" }); //Establece que una compra puede tener muchos pagos y utiliza la clave foránea "compraId".
-
 
 Product.belongsToMany(Compra, {
   through: "CompraProducto",

@@ -16,6 +16,29 @@ const CartServices = {
   //     throw new Error("Error al obtener productos");
   //   }
   // },
+  
+  createEmptyCart: async (userId) => {
+    try {
+      // Desactiva cualquier carrito activo previo
+      await Cart.update({ isActive: false }, {
+        where: { usuarioId: userId, isActive: true },
+      });
+
+      const newCart = await Cart.create({
+        usuarioId: userId,
+        products: [],
+        quantity: 0,
+        amount: 0,
+        inCart: true,
+        isActive: true,
+      });
+
+      return newCart;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al crear el nuevo carrito.");
+    }
+  },
 
   getProductsCart: async () => {
     try {
@@ -31,7 +54,7 @@ const CartServices = {
     }
   },
 
-  addProductsCart: async ({ id, products, quantity, amount }) => {
+  addProductsCart: async ({ id, products, quantity, amount, usuarioId }) => {
     try {
       const product = await Product.findByPk(products[0]);
 
@@ -56,6 +79,7 @@ const CartServices = {
           quantity,
           amount,
           inCart: true,
+          usuarioId, // Establecer el usuarioId al crear el carrito
         });
 
         // Actualizar el estado del producto a "en el carrito", esto lo puse opcional modificando el modelo cart.

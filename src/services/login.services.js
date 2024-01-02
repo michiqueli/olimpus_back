@@ -26,10 +26,23 @@ const loginServices = {
          const token = jwt.sign({ user: user.id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION})
          return token
      },
- 
+
      verifyTokenSession: async(token) => {
          return jwt.verify(token, process.env.JWT_SECRET)
      },
+
+     getUserByToken: async (token) => {
+      try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findByPk(decodedToken.user);
+        if (!user) {
+          throw new Error('Usuario no encontrado');
+        }
+        return user;
+      } catch (error) {
+        throw new Error('Token no válido');
+      }
+    },
  //!---------------Para implementar login con Google-------------------------------------
      addGooglePass: async (email, googlePass) => {
        console.log(googlePass);
