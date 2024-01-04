@@ -135,7 +135,7 @@ router.patch('/update/:id', UserControllers.updateUser);
  *                              type: string
  *      responses:
  *          '200':
- *              description: Successful response. Returns the created Product
+ *              description: Successful response. Returns the created User
  *              content:
  *                  application/json:
  *                      schema:
@@ -158,6 +158,111 @@ router.patch('/update/:id', UserControllers.updateUser);
  *      responses:
  *          '200':
  *              description: Successful response. Returns a list of users white the params in theirs emails.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/getUser'
+ *          '500':
+ *              description: Internal Server Error
+ * 
+ * /users/{userId}:
+ *   get:
+ *      summary: Get User By ID from the DB
+ *      tags: [Users]
+ *      parameters:
+ *         - in: path
+ *           name: userId
+ *           required: true
+ *           schema:
+ *              type: string
+ *           description: ID to Search in the ID of the users of DB
+ *      responses:
+ *          '200':
+ *              description: Successful response. Returns a User with that ID.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/getUser'
+ *          '500':
+ *              description: Internal Server Error
+ * 
+ * /users/token/{userToken}:
+ *   get:
+ *      summary: Get User By Token from the DB
+ *      tags: [Users]
+ *      parameters:
+ *         - in: path
+ *           name: userToken
+ *           required: true
+ *           schema:
+ *              type: string
+ *           description: Token to Search in the Tokens of the users of DB
+ *      responses:
+ *          '200':
+ *              description: Successful response. Returns a User with that Token.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/getUser'
+ *          '500':
+ *              description: Internal Server Error
+ * 
+ * /users/delete/{userId}:
+ *   delete:
+ *      summary: Desactive One User from the DB
+ *      tags: [Users]
+ *      parameters:
+ *         - in: path
+ *           name: userId
+ *           required: true
+ *           schema:
+ *              type: string
+ *           description: ID of the User you want to Desactive
+ *      responses:
+ *          '200':
+ *              description: Successful response. "El Usuario esta ahora deshabilitado".
+ *          '500':
+ *              description: Internal Server Error
+ * 
+ * /users/update/{userId}:
+ *   patch:
+ *      summary: Update an User
+ *      tags: [Users]
+ *      parameters:
+ *         - in: path
+ *           name: userId
+ *           required: true
+ *           schema:
+ *              type: string
+ *           description: Id of the User to update
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *                          street:
+ *                              type: string
+ *                          zipCode:
+ *                              type: string
+ *                          isActive:
+ *                              type: boolean
+ *      responses:
+ *          '200':
+ *              description: Successful response. Returns the Updated User
  *              content:
  *                  application/json:
  *                      schema:
