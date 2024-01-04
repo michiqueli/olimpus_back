@@ -82,7 +82,7 @@ const UserControllers = {
       const roleid = 3
 
       const result = await UserServices.register(name, email, password, street, zipCode, roleid);
-      await mailServices.registerEmail(name, email)
+      mailServices.registerEmail(name, email)
       res.status(200).json(result)
     } catch (error) {
       console.error(error);

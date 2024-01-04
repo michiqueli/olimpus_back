@@ -6,13 +6,12 @@ const trasnporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: EMAIL,
-    pass: PASS,
+    user: "olimpus.shop.mailer@gmail.com",
+    pass: "whfb bbku dihd gxzl",
+  },
+  tls: {
+    rejectUnauthorized: false, // Desactivar solo en entornos de desarrollo
   },
 });
-
-trasnporter.verify()
-.then(() => (console.log("Email enviado con exito...")))
-.catch((error) => console.error(error));
 
 module.exports = trasnporter;
