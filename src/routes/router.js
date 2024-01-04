@@ -9,6 +9,7 @@ const carts = require("./carts.routes.js");
 const purchases = require("./compras.routes.js");
 const login = require("./login.routes.js")
 //const subTypes = require ('./subTypes.routes.js')
+const reviews = require ("./reviews.routes.js")
 
 router.use("/products", products);
 router.use("/users", users);
@@ -17,5 +18,6 @@ router.use("/types", types);
 router.use("/carts", carts);
 router.use("/purchases", purchases); //! historial de compras x usuario
 //router.use('subtypes', subTypes)
+router.use("/reviews", reviews)
 
 module.exports = router;
