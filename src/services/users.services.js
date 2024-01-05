@@ -2,7 +2,8 @@ const { User } = require('../db/db');
 const { Op } = require('sequelize')
 const bcrypt = require('bcrypt')
 // jwt y SK pueden ir en el .env mas adelante. 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const mailServices = require('./mail.services');
 const secretKey =  'olimpus'
 require('dotenv').config()
 
@@ -95,6 +96,7 @@ const UserServices = {
         throw new Error ('User not found')
       }
       await response.update({ isActive: false })
+      mailServices.offLineEmail(response.name, response.email)
 
       return 'User offline mode'
 
