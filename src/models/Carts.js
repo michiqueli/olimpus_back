@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       quantity: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.JSONB,
         allowNull: false,
       },
       amount: {
