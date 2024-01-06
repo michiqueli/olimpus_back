@@ -21,11 +21,11 @@ const CartServices = {
     try {
       // Desactiva cualquier carrito activo previo
       await Cart.update({ isActive: false }, {
-        where: { usuarioId: userId, isActive: true },
+        where: { userId: userId, isActive: true },
       });
 
       const newCart = await Cart.create({
-        usuarioId: userId,
+        userId: userId,
         products: [],
         quantity: 0,
         amount: 0,
@@ -54,49 +54,33 @@ const CartServices = {
     }
   },
 
-  addProductsCart: async ({ id, products, quantity, amount, usuarioId }) => {
+  addProductsCart: async ({ userId, cartId, cartDetails }) => {
     try {
-      const product = await Product.findByPk(products[0]);
-
-      if (!product) {
-        throw new Error("Este producto no se encuentra");
-      }
-
-      const inTheCart = await Cart.findOne({
+      const cart = await Cart.findOne({
         where: {
-          products: {
-            [Op.contains]: { products },
-          },
+          id: cartId,
+          usuarioId: userId,
+          isActive: true,
         },
       });
 
-      const notEmptyCart =
-        id !== undefined && quantity !== undefined && amount !== undefined;
-
-      if (notEmptyCart && !inTheCart) {
-        const newProductInCart = await Cart.create({
-          products,
-          quantity,
-          amount,
-          inCart: true,
-          usuarioId, // Establecer el usuarioId al crear el carrito
-        });
-
-        // Actualizar el estado del producto a "en el carrito", esto lo puse opcional modificando el modelo cart.
-        await product.update({ inCart: true });
-
-        return {
-          mensaje: "El producto fue agregado al carrito",
-          product: newProductInCart,
-        };
-      } else if (inTheCart) {
-        throw new Error("El producto ya está en el carrito");
+      if (!cart) {
+        throw new Error("No se encontró el carrito activo para el usuario.");
       }
+
+      cart.products = cartDetails.products;
+      cart.quantity = cartDetails.quantity;
+      cart.amount = cartDetails.amount;
+
+      await cart.save();
+
+      return {
+        mensaje: "El carrito fue actualizado correctamente.",
+        cart: cart,
+      };
     } catch (error) {
       console.error(error);
-      throw new Error(
-        `Error al agregar productos al carrito: ${error.message}`
-      );
+      throw new Error(`Error al agregar productos al carrito: ${error.message}`);
     }
   },
 

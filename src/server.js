@@ -7,6 +7,13 @@ const session = require('express-session') //! google
 const path = require('path');
 const { BASE_URL, ACCESS_TOKEN } = process.env;
 
+// SDK de Mercado Pago
+// import { MercadoPagoConfig } from 'mercadopago';
+const mercadopago = require('mercadopago');
+// Agrega credenciales
+const client = new mercadopago.MercadoPagoConfig({ accessToken: ACCESS_TOKEN });
+
+
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
 
