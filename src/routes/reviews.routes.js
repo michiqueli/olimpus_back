@@ -89,7 +89,7 @@ router.patch("/deleteReview/:id", ReviewsControllers.deleteReview) // desactiva 
  *      tags: [Reviews]
  *      responses:
  *          '200':
- *              description: Successful response. Returns a list of Reviews.
+ *              description: Successfull response. Returns a list of Reviews.
  *              content:
  *                  application/json:
  *                      schema:
