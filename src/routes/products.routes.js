@@ -211,9 +211,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/postProducts'
+ *                          $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
  * /products/{productId}:
@@ -226,10 +224,10 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *           required: true
  *           schema:
  *              type: integer
- *           description: Id of the requested product info
+ *              description: Id of the requested product info
  *      responses:
  *          '200':
- *              description: Successful response. Returns the product.
+ *              description: Successfull response. Returns the product.
  *              content:
  *                  application/json:
  *                      schema:
@@ -317,9 +315,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/getProducts'
+ *                          $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
  * /products/delete/{productId}:
