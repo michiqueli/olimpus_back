@@ -98,5 +98,4 @@ router.get("/token/:token?", loginControllers.getUserByToken);
  *          '500':
  *              description: Internal server Error
  */
-
 module.exports = router;
