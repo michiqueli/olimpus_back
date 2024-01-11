@@ -12,11 +12,10 @@ router.patch("/update/:id", ProductControllers.updateProduct);
 router.delete("/delete/:id", ProductControllers.deleteProduct);
 
 // FILTRO POR TIPO
-router.get("/filterByType/:typeName", ProductControllers.filterByType); // Doc Lista
+router.get("/filterByType/:typeName", ProductControllers.filterByType);
 
 // FILTRO POR SUBTIPO
-router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType); // Doc Lista
-
+router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
 //FILTRO POR  MEDIDA
 
 router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
@@ -160,7 +159,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  * @swagger
  * tags:
  *   name: Products
- *   description: API para manejar productos
+ *   description: API para manejar Productos
  *
  * /products:
  *   get:
@@ -212,9 +211,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/postProducts'
+ *                          $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
  * /products/{productId}:
@@ -227,10 +224,10 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *           required: true
  *           schema:
  *              type: integer
- *           description: Id of the requested product info
+ *              description: Id of the requested product info
  *      responses:
  *          '200':
- *              description: Successful response. Returns the product.
+ *              description: Successfull response. Returns the product.
  *              content:
  *                  application/json:
  *                      schema:
@@ -318,9 +315,7 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *              content:
  *                  application/json:
  *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/getProducts'
+ *                          $ref: '#/components/schemas/getProducts'
  *          '500':
  *              description: Internal Server Error
  * /products/delete/{productId}:
@@ -372,6 +367,28 @@ router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
  *           schema:
  *              type: string
  *           description: SubType of the requested filtered products
+ *      responses:
+ *          '200':
+ *              description: Successful response. Returns the products.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/getProducts'
+ *          '500':
+ *              description: Internal Server Error
+ * /products/filterByMetric/{metricName}:
+ *    get:
+ *      summary: Get Products filtered By Metrics from the DB
+ *      tags: [Products]
+ *      parameters:
+ *         - in: path
+ *           name: metricName
+ *           required: true
+ *           schema:
+ *              type: string
+ *           description: Metric of the requested filtered products
  *      responses:
  *          '200':
  *              description: Successful response. Returns the products.

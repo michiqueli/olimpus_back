@@ -23,12 +23,11 @@ const loginControllers = {
       }
 
       // Generar token de sesión
-      const token = loginServices.tokenLogin(user);
-
+      const token = await loginServices.tokenLogin(user);
       // Llama a la función para crear la cookie
       loginServices.createCookie(res, token);
 
-      res.status(200).json({ usuario: user.name, email: user.email, token: token });
+      res.status(200).json({ user:{ name: user.name, email: user.email, token: token }});
 
     } catch (error) {
       res.status(401).json({ error: error.message });
