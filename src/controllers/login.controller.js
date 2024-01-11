@@ -25,7 +25,7 @@ const loginControllers = {
       // Generar token de sesión
       const token = await loginServices.tokenLogin(user);
       // Llama a la función para crear la cookie
-      await loginServices.createCookie(res, token);
+      loginServices.createCookie(res, token);
 
       res.status(200).json({ user:{ name: user.name, email: user.email, token: token }});
 
