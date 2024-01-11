@@ -22,13 +22,13 @@ const loginServices = {
          return user.dataValues;
        },
  
-     tokenLogin: async(user) => {
-         const token = jwt.sign({ user: user.id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION})
+     tokenLogin: async (user) => {
+         const token = await jwt.sign({ user: user.id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION})
          return token
      },
 
      verifyTokenSession: async(token) => {
-         return jwt.verify(token, process.env.JWT_SECRET)
+         return await jwt.verify(token, process.env.JWT_SECRET)
      },
 
      getUserByToken: async (token) => {
