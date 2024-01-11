@@ -1,16 +1,6 @@
 const TypeServices = require("../services/types.services");
 
 const TypeControllers = {
-  getAllTypesInStock: async (req, res) => {
-    try {
-      const types = await TypeServices.getAllTypesInStock();
-      res.json(types);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error");
-    }
-  },
-
   getAllTypes: async (req, res) => {
     try {
       const types = await TypeServices.getAllTypes();
@@ -20,10 +10,22 @@ const TypeControllers = {
       res.status(500).send("Internal Server Error");
     }
   },
-  getTypesWithSubtypes: async (req, res) => {
+
+  getSubTypes: async (req, res) => {
     try {
-      const typesWithSubtypes = await TypeServices.getTypesWithSubtypes();
-      res.json(typesWithSubtypes);
+      const {typeId} = req.body
+      const subTypes = await TypeServices.getSubTypes(typeId);
+      res.json(subTypes);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
+  getMetrics: async (req, res) => {
+    try {
+      const {subType} = req.body
+      const metrics = await TypeServices.getMetrics(subType);
+      res.json(metrics);
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error");
