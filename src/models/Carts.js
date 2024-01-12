@@ -12,15 +12,15 @@ module.exports = (sequelize) => {
       },
       products: {
         type: DataTypes.JSONB,
-        allowNull: false,
+        allowNull: true,
       },
       quantity: {
         type: DataTypes.JSONB,
-        allowNull: false,
+        allowNull: true,
       },
       amount: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
       },
       inCart: {
         type: DataTypes.BOOLEAN,
