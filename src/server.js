@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser"); // agrego este middleware facilita el manejo de cookies en las solicitudes HTTP
 const morgan = require("morgan"); // registro de eventos en solicitudes HTTP
@@ -9,9 +10,11 @@ const { BASE_URL, ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 // import { MercadoPagoConfig } from 'mercadopago';
-const mercadopago = require("mercadopago");
+
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+
 // Agrega credenciales
-const client = new mercadopago.MercadoPagoConfig({ accessToken: ACCESS_TOKEN });
+//mercadopago.configurations.setAccessToken(ACCESS_TOKEN);
 
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
@@ -37,7 +40,7 @@ server.use((req, res, next) => {
   next();
 }); // aca no toquetié mucho la configuración de CORS, tengo que investigar mas si hace falta darle configuracion mas puntual.
 
-server.use("/payments", routes); // ruta base va a ser '/' de lo que esté en routes
+server.use("/", routes); // ruta base va a ser '/' de lo que esté en routes
 
 server.name = "API";
 
@@ -112,40 +115,5 @@ server.use(
   swaggerUI.serve,
   swaggerUI.setup(swaggerJsDoc(swaggerSpec))
 );
-
-server.post("/mercadopago/create-preference", async (req, res) => {
-  try {
-    // Lógica para crear la preferencia de pago en MercadoPago
-    const preference = await createMercadoPagoPreference(req.body);
-    res.json({ url: preference.init_point });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ error: "Error al crear la preferencia de pago en MercadoPago" });
-  }
-});
-
-//ejemplo de items
-
-async function createMercadoPagoPreference(orderDetails) {
-  try {
-    const items = orderDetails.products.map((product) => ({
-      title: product.name, // Nombre del producto
-      quantity: product.quantity, // Cantidad de unidades
-      currency_id: "ARS", // Moneda (puedes ajustar según tu configuración)
-      unit_price: product.price, // Precio unitario del producto
-    }));
-
-    const preference = await mercadopago.preferences.create({ items });
-    return preference;
-  } catch (error) {
-    console.error(
-      "Error al crear la preferencia de pago en MercadoPago:",
-      error
-    );
-    throw error;
-  }
-}
 
 module.exports = server;
