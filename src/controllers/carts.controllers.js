@@ -29,7 +29,7 @@ const CartControllers = {
       if (productsCart) {
         res.json(productsCart);
       } else {
-        res.json({ mensaje: "no hay productos en el carrito" });
+        res.json({ mensaje: "no hay carros para mostrar" });
       }
     } catch (error) {
       console.error(error);
@@ -39,19 +39,20 @@ const CartControllers = {
 
   addProductsCart: async (req, res) => {
     try {
-      const { cartDetails } = req.body;
+      const { items, amount } = req.body;
       const { userId, cartId } = req.params;
 
       console.log("Datos recibidos:", {
         userId,
         cartId,
-        cartDetails,
+        items,
+        amount,
       });
 
       const result = await CartServices.addProductsCart({
         userId,
         cartId,
-        cartDetails,
+        cartDetails: { items, amount },
       });
       res.json(result);
     } catch (error) {

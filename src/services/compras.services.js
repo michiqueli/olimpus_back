@@ -16,7 +16,7 @@ const ComprasService = {
         {
           model: Cart,
           as: "Carts",
-          attributes: ["id", "products", "quantity", "amount"],
+          attributes: ["id", "items", "amount"],
         },
       ],
     });
