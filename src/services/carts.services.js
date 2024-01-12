@@ -21,13 +21,12 @@ const CartServices = {
     try {
       // Desactiva cualquier carrito activo previo
       await Cart.update({ isActive: false }, {
-        where: { userId: userId, isActive: true },
+        where: { usuarioId: userId, isActive: true },
       });
-
+      
       const newCart = await Cart.create({
-        userId: userId,
-        products: [],
-        quantity: 0,
+        usuarioId: userId,
+        items: [],
         amount: 0,
         inCart: true,
         isActive: true,
@@ -68,8 +67,7 @@ const CartServices = {
         throw new Error("No se encontró el carrito activo para el usuario.");
       }
 
-      cart.products = cartDetails.products;
-      cart.quantity = cartDetails.quantity;
+      cart.items = cartDetails.items;
       cart.amount = cartDetails.amount;
 
       await cart.save();
