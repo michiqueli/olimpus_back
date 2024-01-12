@@ -1,4 +1,4 @@
-const { Cart, Compra } = require("../db/db");
+const { Cart, Compra, User } = require("../db/db");
 
 const ComprasService = {
   createEmptyHistorial: async (userId) => {
@@ -11,20 +11,26 @@ const ComprasService = {
   getUserHistorial: async (userId) => {
     const historial = await Compra.findOne({
       where: { usuarioId: userId },
-      attributes: ["id", "cartIds", "total", "date"],
+      attributes: ["id", "total", "date"],
       include: [
         {
           model: Cart,
           as: "Carts",
           attributes: ["id", "items", "amount"],
         },
+        {
+          model: User,
+          attributes: ["email"]
+        }
       ],
     });
 
     return {
+      historialId: historial.id,
+      buyer: historial.User.email,
+      date: historial.date,
       carts: historial.Carts,
       total: historial.total,
-      date: historial.date,
     };
   },
 
