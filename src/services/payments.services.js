@@ -1,77 +1,37 @@
-const { Payment } = require("../db/db");
+const { Payment } = require('../db/db');
+const { MercadoPagoConfig, Preference, Item } = require("mercadopago");
 const { Op } = require("sequelize");
-//const mercadopago = require('mercadopago');
 require("dotenv").config();
+
 const { ACCESS_TOKEN } = process.env;
 
-//mercadopago.configurations.setAccessToken(ACCESS_TOKEN);
-
-const { MercadoPagoConfig, Preference } = require("mercadopago");
-// Agrega credenciales
+// Configuración de MercadoPago
 const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN });
-
-const createPayment = async (paymentData) => {
-  try {
-    const mercadoPagoPreference = await createMercadoPagoPreference(
-      paymentData
-    );
-
-    try {
-      // Lógica para crear la preferencia de pago en MercadoPago
-      const preference = await createMercadoPagoPreference(paymentData);
-
-      // Guarda la información del pago en tu base de datos
-      const payment = await Payment.create({
-        current: 1, //paymentData.current,
-        payername: 1, //paymentData.payername,
-        quantity: 20, // paymentData.quantity,
-        amount: 500, //paymentData.quantity * paymentData.unit_price,
-        state: "Pendiente", // Puedes ajustar según tus necesidades
-        date: new Date(),
-
-        // Agrega campos específicos de MercadoPago
-        mercadoPagoPreferenceId: preference.id,
-        mercadoPagoInitPoint: preference.init_point,
-      });
-
-      return { url: preference.init_point };
-    } catch (error) {
-      console.error(error);
-      throw new Error("Error al crear la preferencia de pago en MercadoPago");
-    }
-
-    /* return payment; */
-  } catch (error) {
-    console.error("Error al crear el pago:", error);
-    throw new Error("Error al crear el pago");
-  }
-};
 
 // Función para crear la preferencia de pago en MercadoPago
 async function createMercadoPagoPreference(orderDetails) {
-  // Agrega credenciales
-  const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN });
-
   const preference = new Preference(client);
 
-  const items = orderDetails.products.map((product) => ({
-    title: product.name,
+  // Mapea los productos del carrito a los ítems de la preferencia
+  const items = orderDetails.products.map((product) => new Item({
+    title: product.title, // Utiliza el título del producto
     quantity: product.quantity,
     currency_id: "ARS",
     unit_price: product.unit_price,
   }));
 
   try {
-    const result = await preference.create({
-      body: { items },
-      redirect_urls: {
-        success: "https://olimpus-shop.vercel.app/", // Reemplaza con la URL de éxito de tu aplicación
-        failure: "https://olimpus-shop.vercel.app/", // Reemplaza con la URL de fracaso de tu aplicación
+    // Utiliza client.createPreference para establecer los detalles de la preferencia
+    const result = await client.createPreference({
+      items,
+      back_urls: {
+        success: "https://olimpus-shop.vercel.app/",
+        failure: "https://olimpus-shop.vercel.app/",
       },
     });
 
     console.log("OK", result);
-    return result;
+    return result.body;
   } catch (error) {
     console.error(
       "Error al crear la preferencia de pago en MercadoPago:",
@@ -80,6 +40,38 @@ async function createMercadoPagoPreference(orderDetails) {
     throw error;
   }
 }
+
+const createPayment = async (paymentData) => {
+  try {
+    // Lógica para crear la preferencia de pago en MercadoPago
+    const mercadoPagoPreference = await createMercadoPagoPreference(paymentData);
+
+    try {
+      // Guarda la información del pago en tu base de datos
+      const payment = await Payment.create({
+        current: paymentData.current,
+        payername: paymentData.payername,
+        quantity: paymentData.products.reduce((total, product) => total + product.quantity, 0),
+        amount: paymentData.products.reduce((total, product) => total + product.quantity * product.unit_price, 0),
+        state: "Pendiente",
+        date: new Date(),
+
+        // Agrega campos específicos de MercadoPago
+        mercadoPagoPreferenceId: mercadoPagoPreference.id,
+        mercadoPagoInitPoint: mercadoPagoPreference.init_point,
+      });
+
+      return { url: mercadoPagoPreference.init_point };
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error al crear la preferencia de pago en MercadoPago");
+    }
+
+  } catch (error) {
+    console.error("Error al crear el pago:", error);
+    throw new Error("Error al crear el pago");
+  }
+};
 
 const getPaymentById = async (paymentId) => {
   try {
