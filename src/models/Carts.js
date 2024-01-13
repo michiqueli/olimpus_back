@@ -10,11 +10,11 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      products: {
-        type: DataTypes.JSONB,
-        allowNull: true,
+      usuarioId: {
+        type: DataTypes.UUID,
+        allowNull: false,
       },
-      quantity: {
+      items: {
         type: DataTypes.JSONB,
         allowNull: true,
       },
