@@ -1,5 +1,5 @@
 const { Payment } = require('../db/db');
-const { MercadoPagoConfig, Preference, Item } = require("mercadopago");
+const { MercadoPagoConfig, Preference} = require("mercadopago");
 const { Op } = require("sequelize");
 require("dotenv").config();
 
@@ -13,7 +13,7 @@ async function createMercadoPagoPreference(orderDetails) {
   const preference = new Preference(client);
 
   // Mapea los productos del carrito a los ítems de la preferencia
-  const items = orderDetails.products.map((product) => new Item({
+  const items = orderDetails.products.map((product) => ({
     title: product.title, // Utiliza el título del producto
     quantity: product.quantity,
     currency_id: "ARS",

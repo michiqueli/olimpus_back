@@ -19,7 +19,7 @@ const loginServices = {
            throw new Error('Error de credenciales');
          }
        
-         return user.dataValues;
+         return user;
        },
  
      tokenLogin: async (user) => {
