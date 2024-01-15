@@ -14,13 +14,13 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      items: {  
+      items: {
         type: DataTypes.JSONB,
-        allowNull: false,
+        allowNull: true,
       },
       amount: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
       },
       inCart: {
         type: DataTypes.BOOLEAN,

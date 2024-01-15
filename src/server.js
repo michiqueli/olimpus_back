@@ -1,18 +1,20 @@
+require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser"); // agrego este middleware facilita el manejo de cookies en las solicitudes HTTP
 const morgan = require("morgan"); // registro de eventos en solicitudes HTTP
 const cors = require("cors"); // el cors de siempre, nada que aclarar, regula accesos a peticiones del servidor
-const passport = require('passport'); //! google
-const session = require('express-session') //! google
-const path = require('path');
+const passport = require("passport"); //! google
+const session = require("express-session"); //! google
+const path = require("path");
 const { BASE_URL, ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 // import { MercadoPagoConfig } from 'mercadopago';
-const mercadopago = require('mercadopago');
-// Agrega credenciales
-const client = new mercadopago.MercadoPagoConfig({ accessToken: ACCESS_TOKEN });
 
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+
+// Agrega credenciales
+//mercadopago.configurations.setAccessToken(ACCESS_TOKEN);
 
 const server = express(); // cree la instancia de express para configurar las rutas y logica del server
 const routes = require("./routes/router.js"); // importamos el archivo de rutas principal
@@ -53,57 +55,65 @@ server.use((err, req, res, next) => {
 
 //middleware de proteccion de rutas
 function isLoggedIn(req, res, next) {
-  req.isAuthenticated() ? next() : res.sendStatus(401)
+  req.isAuthenticated() ? next() : res.sendStatus(401);
 }
 
 // Configuración de Passport
-server.use(session({ secret: 'PoryectoHenry', resave: true, saveUninitialized: true }));
+server.use(
+  session({ secret: "PoryectoHenry", resave: true, saveUninitialized: true })
+);
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.get('/auth/google',
-  passport.authenticate('google', {scope: ['email', 'profile'] })
-)
-server.get('/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/protected',
-    failureRedirect: '/auth/failure'
+server.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+server.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/protected",
+    failureRedirect: "/auth/failure",
   })
-)
+);
 
-server.get('/auth/failure', (req, res) => {
-  res.send('Authentication Failure')
-})
+server.get("/auth/failure", (req, res) => {
+  res.send("Authentication Failure");
+});
 
-server.get('/protected', isLoggedIn, (req, res) => {
-  res.send('Ok')
-})
+server.get("/protected", isLoggedIn, (req, res) => {
+  res.send("Ok");
+});
 
-server.get('/logout', (req, res) => {
-  req.logout()
-  req.session.destroy()
-  res.send('GoodBye!')
-})
+server.get("/logout", (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.send("GoodBye!");
+});
 
 // Swagger
-const swaggerUI = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerSpec = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Olimpus Shop Docs',
-            version: '1.0.0',  
-        },
-        servers: [
-            {
-                url: 'https://olimpusback.up.railway.app'
-            }
-        ]
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Olimpus Shop Docs",
+      version: "1.0.0",
     },
-    apis: [`${path.join(__dirname, './routes/*.js')}`]
+    servers: [
+      {
+        url: "https://olimpusback.up.railway.app",
+      },
+    ],
+  },
+  apis: [`${path.join(__dirname, "./routes/*.js")}`],
 };
 
-server.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
+server.use(
+  "/docs",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerJsDoc(swaggerSpec))
+);
 
 module.exports = server;
