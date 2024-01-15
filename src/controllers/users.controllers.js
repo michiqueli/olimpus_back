@@ -1,5 +1,7 @@
 const UserServices = require('../services/users.services.js');
 const mailServices = require('../services/mail.services.js')
+const ComprasServices = require('../services/compras.services.js');
+const CartsServices = require('../services/carts.services.js')
 const UserControllers = {
   getAllUsers: async (req, res) => {
     try {
@@ -82,6 +84,9 @@ const UserControllers = {
       const roleid = 3
 
       const result = await UserServices.register(name, email, password, street, zipCode, roleid);
+      const userId = result.user.id;
+      await ComprasServices.createEmptyHistorial(userId);
+      await CartsServices.createEmptyCart(userId)
       mailServices.registerEmail(name, email)
       res.status(200).json(result)
     } catch (error) {
