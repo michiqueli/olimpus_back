@@ -11,7 +11,7 @@ const { BASE_URL, ACCESS_TOKEN } = process.env;
 // SDK de Mercado Pago
 // import { MercadoPagoConfig } from 'mercadopago';
 
-const { MercadoPagoConfig, Preference } = require("mercadopago");
+// const { MercadoPagoConfig, Preference } = require("mercadopago");
 
 // Agrega credenciales
 //mercadopago.configurations.setAccessToken(ACCESS_TOKEN);
