@@ -27,10 +27,14 @@ const loginServices = {
          return token
      },
 
-     verifyTokenSession: async(token) => {
-         return await jwt.verify(token, process.env.JWT_SECRET)
-     },
-
+     verifyTokenSession: async (token) => {
+      try {
+        return await jwt.verify(token, process.env.JWT_SECRET);
+      } catch (error) {
+        throw new Error('Token no válido');
+      }
+    },
+    
      getUserByToken: async (token) => {
       try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -40,7 +44,7 @@ const loginServices = {
         }
         return user;
       } catch (error) {
-        throw new Error('Token no válido');
+        throw new Error(`Error al verificar el token: ${error.message}`);
       }
     },
  //!---------------Para implementar login con Google-------------------------------------

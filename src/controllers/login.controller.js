@@ -37,7 +37,7 @@ const loginControllers = {
 
     try {
       const decodedToken = loginServices.verifyTokenSession(token);
-      res.status(200).json({ userId: decodedToken.userId, email: decodedToken.email });
+      res.status(200).json({ userId: decodedToken.user, email: decodedToken.email });
     } catch (error) {
       res.status(401).json({ error: 'Token no válido' });
     }
@@ -51,7 +51,7 @@ const loginControllers = {
       }
   
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findByPk(decodedToken.userId);
+      const user = await User.findByPk(decodedToken.user);
   
       if (!user) {
         throw new Error('Usuario no encontrado');
