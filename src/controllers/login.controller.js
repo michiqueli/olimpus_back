@@ -2,8 +2,6 @@ const loginServices = require('../services/login.services');
 const { User } = require('../db/db')
 require("dotenv").config();
 
-
-
 const loginControllers = {
   loginFunction: async (req, res) => {
     const { email, password, googlePass } = req.body;
@@ -27,7 +25,7 @@ const loginControllers = {
       // Llama a la función para crear la cookie
       loginServices.createCookie(res, token);
 
-      res.status(200).json({ user:{ name: user.name, email: user.email, token: token }});
+      res.status(200).json({ user:{ id: user.id, name: user.name, email: user.email, token: token }});
 
     } catch (error) {
       res.status(401).json({ error: error.message });
@@ -39,7 +37,7 @@ const loginControllers = {
 
     try {
       const decodedToken = loginServices.verifyTokenSession(token);
-      res.status(200).json({ userId: decodedToken.userId, email: decodedToken.email });
+      res.status(200).json({ userId: decodedToken.user, email: decodedToken.email });
     } catch (error) {
       res.status(401).json({ error: 'Token no válido' });
     }
@@ -53,7 +51,7 @@ const loginControllers = {
       }
   
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findByPk(decodedToken.userId);
+      const user = await User.findByPk(decodedToken.user);
   
       if (!user) {
         throw new Error('Usuario no encontrado');
