@@ -1,4 +1,4 @@
-const { Review, Product } = require("../db/db");
+const { Review, Product, sequelize } = require("../db/db");
 
 const ReviewsServices = {
   getAllReviews: async () => {
@@ -38,16 +38,25 @@ const ReviewsServices = {
 
   getTopRatedProducts: async () => {
     try {
-      const topRatedProducts = await Product.findAll({
+      const allProducts = await Product.findAll({
         include: [
           {
             model: Review,
             attributes: ["id", "rating"],
           },
         ],
-        order: [[Review, "rating", "DESC"]],
-        limit: 10,
       });
+
+      const productsWithReviews = allProducts.filter((product) => product.Reviews.length > 0);
+
+      // Calcular el promedio de calificaciones y ordenar de mayor a menor
+      const sortedProducts = productsWithReviews.sort((a, b) => {
+        const avgRatingA = a.Reviews.reduce((sum, review) => sum + review.rating, 0) / a.Reviews.length;
+        const avgRatingB = b.Reviews.reduce((sum, review) => sum + review.rating, 0) / b.Reviews.length;
+        return avgRatingB - avgRatingA;
+      });
+
+      const topRatedProducts = sortedProducts.slice(0, 10);
 
       return topRatedProducts;
     } catch (error) {
