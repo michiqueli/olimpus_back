@@ -122,8 +122,8 @@ const ProductControllers = {
 
   filterByMetric: async (req, res) => {
     try {
-      const { metric } = req.params;
-      const products = await ProductServices.filterByMetric(metric);
+      const { metric, subtype } = req.params;
+      const products = await ProductServices.filterByMetric(metric, subtype);
       res.status(200).json(products);
     } catch (error) {
       console.error(error);

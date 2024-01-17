@@ -18,7 +18,7 @@ router.get("/filterByType/:typeName", ProductControllers.filterByType);
 router.get("/filterBySubType/:subtypeName", ProductControllers.filterBySubType);
 //FILTRO POR  MEDIDA
 
-router.get("/filterByMetric/:metric", ProductControllers.filterByMetric);
+router.get("/filterByMetric/:metric/:subtype", ProductControllers.filterByMetric);
 
 /**
  * @swagger
