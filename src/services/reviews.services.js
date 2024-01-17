@@ -13,25 +13,24 @@ const ReviewsServices = {
   
   createReview: async (reviewData) => {
     try {
-        const { userId, productId } = reviewData;
+        const { UserId, ProductId } = reviewData;
 
-        const user = await User.findByPk(userId);
-        const product = await Product.findByPk(productId);
+        const user = await User.findByPk(UserId);
+        const product = await Product.findByPk(ProductId);
 
         if (!user || !product) {
           throw new Error("User or Product not found");
         }
 
         const existingReview = await Review.findOne({
-          where: { UserId: userId,
-            ProductId: productId },
+          where: { UserId: UserId,
+            ProductId: ProductId },
         });
 
         if (existingReview) {
           throw new Error('Ya has realizado una revisión para este producto.');
         }
-        
-
+        console.log(reviewData)
         const newReview = await Review.create(reviewData);
         return newReview
     } catch (error) {
