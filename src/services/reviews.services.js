@@ -23,7 +23,8 @@ const ReviewsServices = {
         }
 
         const existingReview = await Review.findOne({
-          where: { userId, productId },
+          where: { UserId: userId,
+            ProductId: productId },
         });
 
         if (existingReview) {
