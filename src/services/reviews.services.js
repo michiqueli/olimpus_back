@@ -8,34 +8,34 @@ const ReviewsServices = {
             return reviews
         } catch (error) {
             console.error(error)
-            throw new Error ("Error fetching Rwviews")
+            throw new Error ("Error fetching Reviews")
         }
     },
 
     createReview: async (reviewData) => {
         try {
-            const { UserId, ProductId } = reviewData;
+            const { userId, productId } = reviewData;
 
-            const user = await User.findByPk(UserId);
-            const product = await Product.findByPk(ProductId);
+            const user = await User.findByPk(userId);
+            const product = await Product.findByPk(productId);
 
             if (!user || !product) {
               throw new Error("User or Product not found");
             }
 
             const existingReview = await Review.findOne({
-              where: { UserId, ProductId },
+              where: { userId, productId },
             });
       
             if (existingReview) {
               throw new Error('Ya has realizado una revisión para este producto.');
             }
-            
+
             const newReview = await Review.create(reviewData);
             return newReview
         } catch (error) {
             console.error(error)
-            throw new Error ("Error creating Rwview")
+            throw new Error ("Error creating Review")
         }
     },
 
