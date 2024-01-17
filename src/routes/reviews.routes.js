@@ -2,10 +2,10 @@ const { Router } = require("express");
 const router = Router();
 const ReviewsControllers = require("../controllers/reviews.controllers");
 
-router.get("/", ReviewsControllers.getAllReviews) //Trae Todas las Reviews (para AdminDashboard quiza)
-router.post("/createReview", ReviewsControllers.createReview) //Crea una Review, se asocia al producto y al usuario
-router.patch("/deleteReview/:id", ReviewsControllers.deleteReview) // desactiva una review pasa el estado isActive a False
-
+router.get("/", ReviewsControllers.getAllReviews); //Trae Todas las Reviews (para AdminDashboard quiza)
+router.post("/createReview", ReviewsControllers.createReview); //Crea una Review, se asocia al producto y al usuario
+router.patch("/deleteReview/:id", ReviewsControllers.deleteReview); // desactiva una review pasa el estado isActive a False
+router.get("/top-rated-products", ReviewsControllers.getTopRatedProducts);
 /**
  * @swagger
  * components:
@@ -57,13 +57,13 @@ router.patch("/deleteReview/:id", ReviewsControllers.deleteReview) // desactiva 
  *                  description: Indicates the rating of the review in order of 1 to 5
  *              isActive:
  *                  type: boolean
- *                  description: indicates if the review is active or not 
+ *                  description: indicates if the review is active or not
  *              userId:
  *                  type: string
  *                  description: Id of the user that make the review
  *              productId:
  *                  type: number
- *                  description: Id of the product of the review   
+ *                  description: Id of the product of the review
  *          example:
  *              content: Pantalon super comodo, ideal para realizar ejercicio
  *              isActive: true
@@ -130,7 +130,7 @@ router.patch("/deleteReview/:id", ReviewsControllers.deleteReview) // desactiva 
  *                              $ref: '#/components/schemas/postReview'
  *          '500':
  *              description: Internal server error
- * 
+ *
  */
 
 module.exports = router;
