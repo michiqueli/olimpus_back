@@ -1,4 +1,4 @@
-const { Review, Product, sequelize } = require("../db/db");
+const {Review, User, Product} = require ("../db/db")
 
 const ReviewsServices = {
   getAllReviews: async () => {
@@ -10,7 +10,7 @@ const ReviewsServices = {
       throw new Error("Error fetching Rwviews");
     }
   },
-
+  
   createReview: async (reviewData) => {
     try {
       const newReview = await Review.create(reviewData);
