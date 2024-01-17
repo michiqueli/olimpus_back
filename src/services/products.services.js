@@ -185,7 +185,7 @@ const ProductServices = {
     }
   },
 
-  filterByMetric: async (metric) => {
+  filterByMetric: async (metric, subtype) => {
     try {
       const products = await Product.findAll({
         include: [
@@ -194,6 +194,9 @@ const ProductServices = {
             attributes: ["name", "metric"],
             where: {
               metric: metric,
+              name: {
+                [Op.iLike]: `%${subtype}%`,
+              },
             },
           },
         ],
