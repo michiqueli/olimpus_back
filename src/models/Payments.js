@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       payername: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       quantity: {
