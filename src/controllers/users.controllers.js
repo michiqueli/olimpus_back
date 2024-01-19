@@ -59,6 +59,15 @@ const UserControllers = {
       res.status(500).json({ message: error.message })
     }
   },
+  activateUser: async (req, res) => {
+    const { id } = req.params
+    try {
+      const user = await UserServices.activateUser(id)
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(500).json({ message: error.message })
+    }
+  },
   createUser: async (req, res) => {
     try {
       const { name, email, password, street, zipCode} = req.body;

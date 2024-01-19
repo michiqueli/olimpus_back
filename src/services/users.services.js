@@ -105,6 +105,22 @@ const UserServices = {
       throw new Error('Error fetching user')
     }
   },
+  activateUser: async(id) =>{
+    try {
+      const response = await User.findByPk(id)
+      if (!response) {
+        throw new Error ('User not found')
+      }
+      await response.update({ isActive: true })
+      mailServices.onLineEmail(response.name, response.email)
+
+      return 'User Online mode'
+
+    } catch (error) {
+      console.error(error)
+      throw new Error('Error fetching user')
+    }
+  },
   register: async (name, email, password, street, zipCode, roleid) => {
     try {
       let passCript

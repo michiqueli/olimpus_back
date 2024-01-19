@@ -9,6 +9,7 @@ router.get('/email', UserControllers.getUserByEmail);
 router.get('/:id', UserControllers.getUserById);
 router.get('/token/:token', UserControllers.getUserByToken);
 router.delete('/delete/:id', UserControllers.deleteUser);
+router.delete('/activate/:id', UserControllers.activateUser);
 router.patch('/update/:id', UserControllers.updateUser);
 
 /**
