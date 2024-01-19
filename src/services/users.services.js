@@ -1,4 +1,4 @@
-const { User } = require('../db/db');
+const { User, Cart, Compra } = require('../db/db');
 const { Op } = require('sequelize')
 const bcrypt = require('bcrypt')
 // jwt y SK pueden ir en el .env mas adelante. 
@@ -11,7 +11,17 @@ const UserServices = {
   
   getAllUsers: async () => {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        include: [
+          {
+            model: Cart,
+
+          },
+          {
+            model: Compra,
+          },
+        ]
+      })
 
       if (users.length === 0 ) {
         return 'There are not users in the Data Base'
