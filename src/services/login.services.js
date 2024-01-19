@@ -9,6 +9,9 @@ const loginServices = {
          const user = await User.findOne({
            where: { email: email },
          });
+         if (user.isActive === false) {
+          throw new Error ('Tu Usuario a sido Baneado por favor contactate con un administrador')
+         }
        
          if (!user) {
            throw new Error('Error de credenciales');
