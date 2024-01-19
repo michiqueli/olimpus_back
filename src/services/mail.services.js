@@ -150,8 +150,8 @@ const mailServices = {
           "
         >
           <h2 style="color: #090f09">${name}</h2>
-          <h1 style="color: #cfbc11">Lo sentimos mucho</h1>
-          <h2 style="color: #00cc22">Tu Cuenta a sido inHabilita debido a que has infringido alguna norma del sitio</h2>
+          <h1 style="color: #cfbc11">Gracias por Contactarnos</h1>
+          <h2 style="color: #00cc22">Tu Estas en Linea de Nuevo, gracias por confiar en Olimpus Shop</h2>
       
           <a href="https://olimpus-shop.vercel.app/" style="text-decoration: none">
             <button
@@ -166,7 +166,7 @@ const mailServices = {
                 transition: background-color 0.3s ease;
               "
             >
-              Dirigite a nuestro sitio y contactanos
+              Ya puedes seguir comprando
             </button>
           </a>
         </div>
