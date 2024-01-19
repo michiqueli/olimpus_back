@@ -1,48 +1,55 @@
-const { User, Cart, Compra } = require('../db/db');
-const { Op } = require('sequelize')
-const bcrypt = require('bcrypt')
-// jwt y SK pueden ir en el .env mas adelante. 
-const jwt = require('jsonwebtoken');
-const mailServices = require('./mail.services');
-const secretKey =  'olimpus'
-require('dotenv').config()
+const { User, Cart, Compra } = require("../db/db");
+const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
+// jwt y SK pueden ir en el .env mas adelante.
+const jwt = require("jsonwebtoken");
+const mailServices = require("./mail.services");
+const secretKey = "olimpus";
+require("dotenv").config();
 
 const UserServices = {
-  
   getAllUsers: async () => {
     try {
       const users = await User.findAll({
         include: [
           {
             model: Cart,
-
           },
           {
             model: Compra,
           },
-        ]
-      })
+        ],
+      });
 
-      if (users.length === 0 ) {
-        return 'There are not users in the Data Base'
+      if (users.length === 0) {
+        return "There are not users in the Data Base";
       }
       return users;
     } catch (error) {
       console.error(error);
-      throw new Error('Error fetching users');
+      throw new Error("Error fetching users");
     }
   },
   getUserById: async (id) => {
     try {
-      const response = await User.findByPk(id)
+      const response = await User.findByPk(id, {
+        include: [
+          {
+            model: Cart,
+          },
+          {
+            model: Compra,
+          },
+        ],
+      });
 
       if (!response) {
-        return 'Cannot find the User ID'
+        return "Cannot find the User ID";
       }
-      return response
+      return response;
     } catch (error) {
-      console.error(error)
-      throw new Error('Error fetching users')
+      console.error(error);
+      throw new Error("Error fetching users");
     }
   },
   getUserByToken: async (token) => {
@@ -50,19 +57,28 @@ const UserServices = {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
       if (!decodedToken.user) {
-        throw new Error('Invalid token');
+        throw new Error("Invalid token");
       }
 
-      const user = await User.findByPk(decodedToken.user.id);
+      const user = await User.findByPk(decodedToken.user.id, {
+        include: [
+          {
+            model: Cart,
+          },
+          {
+            model: Compra,
+          },
+        ],
+      });
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       return user;
     } catch (error) {
       console.error(error);
-      throw new Error('Error fetching user by token');
+      throw new Error("Error fetching user by token");
     }
   },
   getUserByEmail: async (email) => {
@@ -70,74 +86,80 @@ const UserServices = {
       const response = await User.findAll({
         where: {
           email: {
-            [Op.iLike]: `%${email}%`
-          }
-        }
-      })
-      if(!response) {
-        throw new Error ('User email not Found')
+            [Op.iLike]: `%${email}%`,
+          },
+        },
+        include: [
+          {
+            model: Cart,
+          },
+          {
+            model: Compra,
+          },
+        ],
+      });
+      if (!response) {
+        throw new Error("User email not Found");
       }
-      return response
+      return response;
     } catch (error) {
-      console.error(error)
-      throw new Error('Error fetching user email')
+      console.error(error);
+      throw new Error("Error fetching user email");
     }
   },
   updateUser: async (id, updateData) => {
     try {
-      const user = await User.findByPk(id)
+      const user = await User.findByPk(id);
 
-      if(!user) {
-        throw new Error (`Cannot update User with id: ${id} `)
+      if (!user) {
+        throw new Error(`Cannot update User with id: ${id} `);
       }
 
-      const updatedUser = await user.update(updateData)
+      const updatedUser = await user.update(updateData);
 
-      return updatedUser
+      return updatedUser;
     } catch (error) {
-      console.error(error)
-      throw new Error('Error fetching user')
+      console.error(error);
+      throw new Error("Error fetching user");
     }
   },
-  deleteUser: async(id) =>{
+  deleteUser: async (id) => {
     try {
-      const response = await User.findByPk(id)
+      const response = await User.findByPk(id);
       if (!response) {
-        throw new Error ('User not found')
+        throw new Error("User not found");
       }
-      await response.update({ isActive: false })
-      mailServices.offLineEmail(response.name, response.email)
+      await response.update({ isActive: false });
+      mailServices.offLineEmail(response.name, response.email);
 
-      return 'User offline mode'
-
+      return "User offline mode";
     } catch (error) {
-      console.error(error)
-      throw new Error('Error fetching user')
+      console.error(error);
+      throw new Error("Error fetching user");
     }
   },
-  activateUser: async(id) =>{
+  activateUser: async (id) => {
     try {
-      const response = await User.findByPk(id)
+      const response = await User.findByPk(id);
       if (!response) {
-        throw new Error ('User not found')
+        throw new Error("User not found");
       }
-      await response.update({ isActive: true })
-      mailServices.onLineEmail(response.name, response.email)
+      await response.update({ isActive: true });
+      mailServices.onLineEmail(response.name, response.email);
 
-      return 'User Online mode'
-
+      return "User Online mode";
     } catch (error) {
-      console.error(error)
-      throw new Error('Error fetching user')
+      console.error(error);
+      throw new Error("Error fetching user");
     }
   },
   register: async (name, email, password, street, zipCode, roleid) => {
     try {
-      let passCript
-      if(password.length >= 6) {
-        passCript = bcrypt.hashSync(password, 10)
+      let passCript;
+      if (password.length >= 6) {
+        passCript = bcrypt.hashSync(password, 10);
       } else {
-        passCript = password
+        passCript = password;
       }
 
       const user = await User.create({
@@ -146,22 +168,21 @@ const UserServices = {
         street,
         zipCode,
         roleid,
-        password: passCript
-      })
+        password: passCript,
+      });
 
       if (user) {
-        let token = jwt.sign({ user: user}, secretKey, {
-          expiresIn: '24h'
-        })
-        return{
+        let token = jwt.sign({ user: user }, secretKey, {
+          expiresIn: "24h",
+        });
+        return {
           user: user,
           token: token,
-        }
+        };
       }
-
     } catch (error) {
       console.error(error);
-      throw new Error('Error at creating user');
+      throw new Error("Error at creating user");
     }
   },
 };
