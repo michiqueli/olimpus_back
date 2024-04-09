@@ -1,66 +1,42 @@
-const { Product, Type, Subtype } = require("../db/db");
-const { Op } = require("sequelize");
+const { Type, Subtype } = require("../db/db");
+const { Op, where } = require("sequelize");
 const Types = require("../models/Types");
 
 const TypeServices = {
-  getAllTypesInStock: async () => {
-    try {
-      const products = await Product.findAll({
-        include: [
-          {
-            model: Type,
-            attributes: ["name"],
-          },
-          {
-            model: Subtype,
-            attributes: ["name", "metric"],
-          },
-        ],
-      });
-      let types = [];
-      products.map((product) => {
-        types.push({
-          type: product.Type.name,
-          subType: product.Subtype.name,
-          metric: product.Subtype.metric,
-        });
-      });
-      return types;
-    } catch (error) {
-      console.error(error);
-      throw new Error("Error fetching products");
-    }
-  },
   getAllTypes: async () => {
     try {
-      const types = await Subtype.findAll({
-        include: [
-          {
-            model: Type,
-            attributes: ["name"],
-          },
-        ],
-      });
-      return types;
+      const allTypes = await Type.findAll();
+      return allTypes;
     } catch (error) {
       console.error(error);
-      throw new Error("Error fetching products");
+      throw new Error("Error fetching Types");
     }
   },
-  getTypesWithSubtypes: async () => {
+  getSubTypes: async (typeId) => {
     try {
-      const typesWithSubtypes = await Type.findAll({
-        include: [
-          {
-            model: Subtype,
-            attributes: ["id", "name", "metric"],
-          },
-        ],
+      const subTypes = await Subtype.findAll({
+        where: { TypeId: typeId },
       });
-      return typesWithSubtypes;
+      return subTypes;
     } catch (error) {
       console.error(error);
-      throw new Error("Error fetching types with subtypes");
+      throw new Error("Error fetching SubTypes");
+    }
+  },
+  getMetrics: async (subType) => {
+    try {
+      const metrics = await Subtype.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${subType}%`,
+          },
+        },
+        attributes: ["id", "metric"],
+      });
+      return metrics;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching Metrics");
     }
   },
 };

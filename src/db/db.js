@@ -47,7 +47,7 @@ User.hasMany(Review);
 Review.belongsTo(Product);
 Product.hasMany(Review);
 
-Cart.belongsTo(Compra, { foreignKey: "CartId", as: "Carts" }); //!se cambio!!
+Cart.belongsTo(Compra, { foreignKey: "CartId", as: "Compra" }); //!se cambio!!
 Compra.hasMany(Cart, { foreignKey: "CartId", as: "Carts" }); //! se cambio!!
 
 Compra.belongsTo(User, { foreignKey: "usuarioId" }); //Establece que una compra pertenece a un usuario y utiliza la clave foránea "usuarioId". //! se cambio!!

@@ -2,7 +2,8 @@ const { User } = require('../db/db');
 const { Op } = require('sequelize')
 const bcrypt = require('bcrypt')
 // jwt y SK pueden ir en el .env mas adelante. 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const mailServices = require('./mail.services');
 const secretKey =  'olimpus'
 require('dotenv').config()
 
@@ -32,6 +33,26 @@ const UserServices = {
     } catch (error) {
       console.error(error)
       throw new Error('Error fetching users')
+    }
+  },
+  getUserByToken: async (token) => {
+    try {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!decodedToken.user) {
+        throw new Error('Invalid token');
+      }
+
+      const user = await User.findByPk(decodedToken.user.id);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error fetching user by token');
     }
   },
   getUserByEmail: async (email) => {
@@ -75,6 +96,7 @@ const UserServices = {
         throw new Error ('User not found')
       }
       await response.update({ isActive: false })
+      mailServices.offLineEmail(response.name, response.email)
 
       return 'User offline mode'
 

@@ -1,5 +1,7 @@
 const UserServices = require('../services/users.services.js');
-
+const mailServices = require('../services/mail.services.js')
+const ComprasServices = require('../services/compras.services.js');
+const CartsServices = require('../services/carts.services.js')
 const UserControllers = {
   getAllUsers: async (req, res) => {
     try {
@@ -17,6 +19,16 @@ const UserControllers = {
       res.status(200).json(user)
     } catch (error) {
       res.status(500).send({ message: error.message})
+    }
+  },
+  getUserByToken: async (req, res) => {
+    const { token } = req.params;
+
+    try {
+      const user = await UserServices.getUserByToken(token);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   },
   getUserByEmail: async (req, res) => {
@@ -71,7 +83,11 @@ const UserControllers = {
       }
       const roleid = 3
 
-      const result = await UserServices.register(name, email, password, street, zipCode, roleid)
+      const result = await UserServices.register(name, email, password, street, zipCode, roleid);
+      const userId = result.user.id;
+      await ComprasServices.createEmptyHistorial(userId);
+      await CartsServices.createEmptyCart(userId)
+      mailServices.registerEmail(name, email)
       res.status(200).json(result)
     } catch (error) {
       console.error(error);

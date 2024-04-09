@@ -39,6 +39,10 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+      googlePass: {
+        type: DataTypes.STRING,
+        allowNull: true
+      }
     },
     {
       timestamps: false,

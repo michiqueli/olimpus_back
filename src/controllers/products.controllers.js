@@ -77,7 +77,7 @@ const ProductControllers = {
   },
 
   deleteProduct: async (req, res) => {
-    z;
+    
     const { id } = req.params;
     try {
       const product = await ProductServices.deleteProduct(id);

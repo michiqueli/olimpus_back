@@ -1,18 +1,8 @@
 const ComprasService = require('../services/compras.services');
+const CartServices = require( '../services/carts.services' );
 
 const ComprasController = {
-  createEmptyHistorial: async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-      await ComprasService.createEmptyHistorial(userId);
-      res.status(201).json({ message: 'Historial creado correctamente.' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al crear el historial.' });
-    }
-  },
-
+  
   getUserHistorial: async (req, res) => {
     const { userId } = req.params;
 
@@ -31,6 +21,7 @@ const ComprasController = {
 
     try {
       await ComprasService.addCompraToHistorial(userId, cartId);
+      await CartServices.createEmptyCart(userId)
       res.status(201).json({ message: 'Compra agregada al historial correctamente.' });
     } catch (error) {
       console.error(error);

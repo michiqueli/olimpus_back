@@ -10,17 +10,17 @@ module.exports = (sequelize) => {
         autoIncrement: true,
         unique: true,
       },
-      products: {
-        type: DataTypes.JSONB,
+      usuarioId: {
+        type: DataTypes.UUID,
         allowNull: false,
       },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      items: {
+        type: DataTypes.JSONB,
+        allowNull: true,
       },
       amount: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
       },
       inCart: {
         type: DataTypes.BOOLEAN,
