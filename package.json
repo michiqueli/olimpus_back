@@ -37,7 +37,7 @@
     "nodemon": "^3.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "pg": "^8.11.3",
+    "pg": "^8.11.5",
     "sequelize": "^6.35.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui": "^5.10.3",
