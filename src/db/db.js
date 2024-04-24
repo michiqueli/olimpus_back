@@ -15,6 +15,7 @@ const PaymentModel = require("../models/Payments");
 const sequelize = new Sequelize(DB_HOST, {
   logging: false,
   native: false,
+  dialect: 'postgres',
 });
 
 CartModel(sequelize);
