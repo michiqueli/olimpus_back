@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { pg } = require('pg')
 const { Sequelize } = require("sequelize");
 
 const { DB_HOST } = process.env;
@@ -16,6 +17,7 @@ const sequelize = new Sequelize(DB_HOST, {
   logging: false,
   native: false,
   dialect: 'postgres',
+  dialectModule: pg
 });
 
 CartModel(sequelize);
