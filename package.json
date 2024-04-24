@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/michiqueli/olimpus_back#readme",
   "dependencies": {
+    "@vercel/node": "^3.0.27",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.2",
     "cookie-parser": "^1.4.6",

@@ -2,10 +2,10 @@ require('dotenv').config()
 
 const PORT = process.env.PORT || 3001
 
-const server = require('./src/server');
-const { conn } = require('./src/db/db');
+const server = require('./server');
+const { conn } = require('./db/db');
 
-require('./src/db/db');
+require('./db/db');
 
 conn.sync({ alter: true })
   .then(() => {
